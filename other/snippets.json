@@ -1,0 +1,33 @@
+{
+	"c-style head": {
+		"prefix": "sn-c-head",
+		"body": [
+			"/**",
+			"* @Author: fiyc",
+			"* @Date : $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE",
+			"* @FileName : $TM_FILENAME",
+			"* @Description : $1",
+			"*/"
+		]
+	},
+	"python head": {
+		"prefix": "sn-python-head",
+		"body": [
+			"# -*- coding: utf-8 -*-",
+			"'''",
+			"@Author: fiyc",
+			"@Date : $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE",
+			"@FileName : $TM_FILENAME",
+			"@Description : $1",
+			"'''"
+		]
+	},
+	"item-log":{
+		"prefix": "sn-item-log",
+		"body": "* $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE $1 @[$TM_FILEPATH](#)"
+	},
+	"yyyy-MM-dd HH:mm":{
+		"prefix": "sn-now",
+		"body": "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE $1"
+	}
+}
