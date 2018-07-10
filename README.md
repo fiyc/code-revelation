@@ -3,7 +3,8 @@
 * 2018-07-09 17:00 - 添加几个常用的文件头注释代码片段  @[other/snippets.json](#)
 
 ## python
-
+* 2018-07-10 10:38 - 日志打印封装 @[python\flib\flog.py](#)
+* 2018-07-10 10:44 - request请求封装 @[python\flib\frequest.py](#)
 ## 前端
 ### webpack
 * 2018-07-09 22:15 - 第一次`webpack`学习 @[front-end/webpack-learn/](#)
@@ -43,6 +44,8 @@
 * 2018-07-09 23:15 - 聚光灯 @[front-end/threejs-learn/app/demos/d_10.js](#)
 * 2018-07-09 23:16 - 方向光 @[front-end/threejs-learn/app/demos/d_11.js](#)
 * 2018-07-09 23:17 - 纹理? @[front-end/threejs-learn/app/demos/d_12.js](#)
+
+
 
 
 
