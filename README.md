@@ -5,6 +5,7 @@
 ## python
 * 2018-07-10 10:38 - 日志打印封装 @[python\flib\flog.py](#)
 * 2018-07-10 10:44 - request请求封装 @[python\flib\frequest.py](#)
+* 2018-07-10 11:14 - 爬虫数据解析装饰器 @[python\flib\crawler-decorator.py](#)
 ## 前端
 ### webpack
 * 2018-07-09 22:15 - 第一次`webpack`学习 @[front-end/webpack-learn/](#)
