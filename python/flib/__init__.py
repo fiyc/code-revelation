@@ -1,3 +1,3 @@
 from . import flog
 from . import frequest
-from . import crawler-decorator as crawler
+from . import crawler_decorator

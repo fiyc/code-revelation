@@ -10,8 +10,8 @@
 
 
 
-import frequest
-import flog
+from . import frequest
+from . import flog
 
 '''
 爬虫解析函数装饰器
