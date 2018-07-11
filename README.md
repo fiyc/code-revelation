@@ -46,7 +46,7 @@
 * 2018-07-09 23:15 - 聚光灯 @[front-end/threejs-learn/app/demos/d_10.js](#)
 * 2018-07-09 23:16 - 方向光 @[front-end/threejs-learn/app/demos/d_11.js](#)
 * 2018-07-09 23:17 - 纹理? @[front-end/threejs-learn/app/demos/d_12.js](#)
-
+* 2018-07-11 15:29 - 使用canvas作为纹理 @[front-end\threejs-learn\app\demos\d_13.js](#)
 
 
 

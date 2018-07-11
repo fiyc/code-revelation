@@ -17,18 +17,20 @@ let width;
 let height;
 let target;
 
-let init = function(param){
+let canRender = false;
+
+let init = function (param) {
 	let defaultParam = {
 		targetId: 'canvas-frame',
 		showStats: false
 	};
 
 	Object.assign(defaultParam, param);
-	
+
 	target = document.getElementById(defaultParam.targetId);
 
-    width = target.clientWidth;
-    height = target.clientHeight;
+	width = target.clientWidth;
+	height = target.clientHeight;
 
 	initThree();
 	initCamera();
@@ -48,72 +50,79 @@ let init = function(param){
 	}
 */
 
-	render();
+	// render();
 
-	if(defaultParam.showStats){
+
+
+	if (defaultParam.showStats) {
 		openStats();
 	}
-	
+
 	return {
 		camera,
 		width,
 		height,
-		setCamera: (c) =>{
+		setCamera: (c) => {
 			camera = c;
 		},
 		addScene: (obj) => {
 			scene.add(obj);
+		},
+		beginRender: () => {
+			setTimeout(render, 100);
 		}
 	};
 }
 
-function render(){
+function render() {
 	renderer.render(scene, camera);
 
-	if(stats){
+	if (stats) {
 		stats.update();
 	}
+
+
 	requestAnimationFrame(render);
 }
 
 function initThree() {
-    renderer = new THREE.WebGLRenderer({
-        antialias : true
-    });
-    renderer.setSize(width, height);
+	renderer = new THREE.WebGLRenderer({
+		antialias: true
+	});
+	renderer.setSize(width, height);
 	target.appendChild(renderer.domElement);
-    renderer.setClearColor(0xFFFFFF, 1.0);
+	renderer.setClearColor(0xFFFFFF, 1.0);
 }
 
 
 function initCamera() {
-    camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
-    camera.position.x = 0;
-    camera.position.y = 1000;
-    camera.position.z = 0;
+	camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+	camera.position.x = 0;
+	camera.position.y = 1000;
+	camera.position.z = 0;
 
-    camera.lookAt(0,0,0);
+	camera.lookAt(0, 0, 0);
 }
 
 
 function initScene() {
-    scene = new THREE.Scene();
+	scene = new THREE.Scene();
 }
 
 
 
 function threeStart() {
-    initThree();
-    initCamera();
-    initScene();
-    initLight();
-    initObject();
-    renderer.clear();
-    renderer.render(scene, camera);
+	initThree();
+	initCamera();
+	initScene();
+	initLight();
+	initObject();
+	renderer.clear();
+	renderer.render(scene, camera);
 }
 
 var stats;
-function openStats(){
+function openStats() {
 	stats = new Stats();
 	stats.setMode(1);//0. fps, 1:ms
 	stats.domElement.style.position = 'absolute';
