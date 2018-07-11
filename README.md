@@ -47,6 +47,7 @@
 * 2018-07-09 23:16 - 方向光 @[front-end/threejs-learn/app/demos/d_11.js](#)
 * 2018-07-09 23:17 - 纹理? @[front-end/threejs-learn/app/demos/d_12.js](#)
 * 2018-07-11 15:29 - 使用canvas作为纹理 @[front-end\threejs-learn\app\demos\d_13.js](#)
+* 2018-07-11 16:12 - 网络模型旋转的常用技巧和方法 @[front-end\threejs-learn\app\demos\d_14.js](#)
 
 
 
