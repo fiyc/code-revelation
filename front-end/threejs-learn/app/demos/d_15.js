@@ -34,9 +34,9 @@ let addBox = function () {
         geometry.faces[i + 1].color.setHex(hex);
 
     }
-
-    debugger;
-    var material = new THREE.MeshBasicMaterial({ vertexColors: THREE.FaceColors });
+    
+    // var material = new THREE.MeshBasicMaterial({ vertexColors: THREE.FaceColors });
+    var material = new THREE.MeshBasicMaterial({color: 0xff1493});
     center = new THREE.Mesh(geometry, material);
     
 
@@ -59,9 +59,9 @@ let setCamera = function () {
     c.position.x = 100;
     c.position.y = 300;
     c.position.z = 600;
-    c.up.x = 0;
-    c.up.y = 1;
-    c.up.z = 0;
+    // c.up.x = 0;
+    // c.up.y = 1;
+    // c.up.z = 0;
     c.lookAt(0,0,0);
 }
 
@@ -78,13 +78,22 @@ module.exports = function () {
     setCamera();
     three.beginRender();
 
+
+    let yStep = 1;
     setInterval(() => {
-        debugger;
         // mesh.rotation.y += 0.01;
         var axis = new THREE.Vector3(0,1,0);
         mesh.rotateOnAxis(axis, 0.1);
-        temp.remove(mesh);
+
         temp.rotateOnAxis(axis, 0.01);
-        // temp.position.y += 1;
-    },10);
+
+        if(temp.position.y >= 200){
+            yStep = -1;
+        }
+
+        if(temp.position.y <= 50){
+            yStep = 1;
+        }
+        temp.position.y += yStep;
+    },100);
 }
