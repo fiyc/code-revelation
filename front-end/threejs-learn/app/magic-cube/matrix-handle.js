@@ -67,14 +67,22 @@ let roration = function(plan, num){
 
 
     for(let n = 0; n < num; n++){
-        clockWiseRotation(realIndexs);
+        clockWiseRotation(topIndexs);
         clockWiseRotation(edgeIndexs);
     }
 }
 
+
+for(let i=0; i<27; i++){
+    allPoint.push(i);
+}
+
+roration('front', 2);
+
 module.exports = {
-    setPoint = function(points){
+    setPoint: function(points){
         allPoint = points;
     },
     roration
 }
+
