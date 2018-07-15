@@ -70,7 +70,8 @@ let init = function (param) {
 		},
 		beginRender: () => {
 			setTimeout(render, 100);
-		}
+		},
+		scene
 	};
 }
 

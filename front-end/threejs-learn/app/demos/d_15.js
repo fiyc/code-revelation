@@ -46,6 +46,7 @@ let addBox = function () {
     mesh.position.z = 200;
     temp.add(mesh);
     add(center);
+    add(mesh);
     add(temp);
 }
 
