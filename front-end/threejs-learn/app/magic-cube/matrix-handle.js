@@ -22,7 +22,7 @@ const edgeAngels = [1, 5, 7, 3];
 
 //各个面对应的总一维数组中下标
 const planIndexs = {
-    front: {points: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], vector: [0, 0, -1]},
+    front: {points: [0, 1, 2, 3, 4, 5, 6, 7, 8], vector: [0, 0, -1]},
     back: {points: [20, 19, 18, 23, 22, 21, 26, 25, 24], vector: [0, 0, 1]},
     left: {points: [18, 9, 0, 21, 12, 3, 24, 15, 6], vector: [1, 0, 0]}, 
     right: {points: [2, 11, 20, 5, 14, 23, 8, 17, 26], vector: [-1, 0, 0]},

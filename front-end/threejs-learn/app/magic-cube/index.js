@@ -78,82 +78,6 @@ let initBox = function () {
     matrix.setPoint(allBoxs);
 }
 
-let test = function () {
-    let rotationBox1 = new THREE.Object3D();
-    let boxes = matrix.getPoint('right');
-    debugger;
-    for (let index in boxes) {
-        rotationBox1.add(boxes[index]);
-    }
-
-    t.addScene(rotationBox1);
-
-    let rotationIndex = 0;
-    var axis = new THREE.Vector3(-1, 0, 0);
-    let axisVector = [-1, 0, 0];
-    let interval = setInterval(function(){
-        rotationIndex += 1;
-        if(rotationIndex >= 45){
-            clearInterval(interval);
-            t.scene.remove(rotationBox1);
-
-            for (let index in boxes) {
-                if(index === "7" || index === "0" ||index === "6"){
-                    // debugger;
-                }
-                let realAxis = boxes[index].coordinate.convertVector(axisVector);
-                let currentAxis = new THREE.Vector3(realAxis[0], realAxis[1], realAxis[2]);
-                boxes[index].rotateOnAxis(currentAxis, Math.PI / 2);
-                t.addScene(boxes[index]);
-            }
-
-            matrix.roration('right', 1);
-
-            return;
-        }
-
-        rotationBox1.rotateOnAxis(axis, Math.PI / 90);
-    }, 100);
-}
-
-let test2 = function () {
-    let rotationBox = new THREE.Object3D();
-    let boxes = matrix.getPoint('buttom');
-    console.log(boxes[2]);
-    for (let index in boxes) {
-        rotationBox.add(boxes[index]);
-    }
-
-    t.addScene(rotationBox);
-
-    let rotationIndex = 0;
-    var axis = new THREE.Vector3(0, -1, 0);
-    let axisVector = [0, -1, 0];
-    let interval = setInterval(function(){
-        rotationIndex += 1;
-        if(rotationIndex >= 45){
-            clearInterval(interval);
-            t.scene.remove(rotationBox);
-
-            for (let index in boxes) {
-                let realAxis = boxes[index].coordinate.convertVector(axisVector);
-                let currentAxis = new THREE.Vector3(realAxis[0], realAxis[1], realAxis[2]);
-                boxes[index].rotateOnAxis(currentAxis, Math.PI / 2);
-                t.addScene(boxes[index]);
-            }
-
-            matrix.roration('buttom', 1);
-            matrix.printIndex('buttom');
-
-            test();
-            return;
-        }
-        // boxes[2].rotateOnAxis(axis, Math.PI /90);
-        rotationBox.rotateOnAxis(axis, Math.PI / 90);
-    }, 100);
-}
-
-
 let rotation = function(plan, cb){
     let rotationBox = new THREE.Object3D();
     let boxes = matrix.getPoint(plan);
@@ -164,7 +88,7 @@ let rotation = function(plan, cb){
 
     t.addScene(rotationBox);
 
-    let speed = 45;
+    let speed = 15;
     let vector = matrix.getVecotrByPlan(plan);
     var axis = new THREE.Vector3(vector[0], vector[1], vector[2]);
 
@@ -195,19 +119,23 @@ let rotation = function(plan, cb){
     }, 100);
 }
 
+let roationRandom = function(){
+    let plan = ['top', 'buttom', 'left', 'right', 'front', 'back'];
+    let index = Math.floor(Math.random() * 6);
+    console.log(index);
+
+    rotation(plan[index], roationRandom);
+
+}
+
 
 
 module.exports = function () {
     setCamera();
-    initGrid();
+    // initGrid();
     initBox();
     t.beginRender();
-
+    roationRandom();
     // test();
     // test2();
-    rotation('buttom', () => {
-        rotation('right', () => {
-            rotation('top');
-        });
-    });
 }
