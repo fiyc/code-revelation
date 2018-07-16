@@ -27,7 +27,12 @@ const planIndexs = {
     left: {points: [18, 9, 0, 21, 12, 3, 24, 15, 6], vector: [1, 0, 0]}, 
     right: {points: [2, 11, 20, 5, 14, 23, 8, 17, 26], vector: [-1, 0, 0]},
     top: {points: [18, 19, 20, 9, 10, 11, 0, 1, 2], vector: [0, -1, 0]}, 
-    buttom: {points: [24, 25, 26, 15, 16, 17, 6, 7, 8],  vector: [0, -1, 0]}
+    buttom: {points: [24, 25, 26, 15, 16, 17, 6, 7, 8],  vector: [0, -1, 0]},
+    //中间水平层
+    midh: {points: [21,22,23,12,13,14,3,4,5], vector: [0, -1, 0]},
+    //中间垂直层
+    midv: {points:[1,10,19,4,13,22,7,16,25], vector: [-1, 0, 0]}
+
 }
 
 /**
@@ -212,6 +217,10 @@ module.exports = {
         allPoint = points;
     },
     getPoint: function (plan) {
+        if(!plan){
+            return allPoint;
+        }
+
         let result = [];
         let pointIndexs = planIndexs[plan].points;
         for (let index in pointIndexs) {
