@@ -22,12 +22,12 @@ const edgeAngels = [1, 5, 7, 3];
 
 //各个面对应的总一维数组中下标
 const planIndexs = {
-    front : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    back : [20, 19, 18, 23, 22, 21, 26, 25, 24],
-    left : [18, 9, 0, 21, 12, 3, 24, 15, 6],
-    right : [2, 11, 20, 5, 14, 23, 8, 17, 26],
-    top : [18, 19, 20, 9, 10, 11, 0, 1, 2],
-    buttom : [6, 7, 8, 15, 16, 17, 24, 25, 26]
+    front: {points: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], vector: [0, 0, -1]},
+    back: {points: [20, 19, 18, 23, 22, 21, 26, 25, 24], vector: [0, 0, 1]},
+    left: {points: [18, 9, 0, 21, 12, 3, 24, 15, 6], vector: [1, 0, 0]}, 
+    right: {points: [2, 11, 20, 5, 14, 23, 8, 17, 26], vector: [-1, 0, 0]},
+    top: {points: [18, 19, 20, 9, 10, 11, 0, 1, 2], vector: [0, -1, 0]}, 
+    buttom: {points: [24, 25, 26, 15, 16, 17, 6, 7, 8],  vector: [0, -1, 0]}
 }
 
 /**
@@ -35,14 +35,29 @@ const planIndexs = {
  * 例： [1, 2, 3, 4] 将置换为 [4, 1, 2, 3], 这里的1,2,3,4指代长度为27的一维数组的下标
  * @param {*} indexs 长度为4的数组, 指代总一维数组中的下标
  */
-let clockWiseRotation = function(indexs){
+let clockWiseRotation = function (indexs) {
     let temp = allPoint[indexs[3]];
-    for(let i=0; i<4; i++){
+
+    let initPosition = [];
+    for (let i = 0; i < 4; i++){
+        let currentIndex = indexs[i];
+        let currentPoint = allPoint[currentIndex];
+        let currentX = currentPoint.position.x;
+        let currentY = currentPoint.position.y;
+        let currentZ = currentPoint.position.z;
+        initPosition.push([currentX, currentY, currentZ]);
+    }
+
+    for (let i = 0; i < 4; i++) {
         let currentIndex = indexs[i];
         let currentTemp = allPoint[currentIndex];
+        temp.position.x = initPosition[i][0];
+        temp.position.y = initPosition[i][1];
+        temp.position.z = initPosition[i][2];
         allPoint[currentIndex] = temp;
         temp = currentTemp;
     }
+
 }
 
 /**
@@ -50,109 +65,175 @@ let clockWiseRotation = function(indexs){
  * @param {} plan 面: front, back, left, right, top, buttom
  * @param {*} num 顺时针旋转90度的次数
  */
-let roration = function(plan, num){
+let roration = function (plan, num) {
+    // debugger;
     num = num % 4;
 
-    let currentPlan = planIndexs[plan];
+    let currentPlan = planIndexs[plan].points;
     //当前面的四个顶角在一维数组中对应的序列
     let topIndexs = [];
-    for(let i=0; i<4; i++){
+    for (let i = 0; i < 4; i++) {
         topIndexs.push(currentPlan[topAngles[i]]);
     }
 
     let edgeIndexs = [];
-    for(let i=0; i<4; i++){
+    for (let i = 0; i < 4; i++) {
         edgeIndexs.push(currentPlan[edgeAngels[i]]);
     }
 
 
-    for(let n = 0; n < num; n++){
+    for (let n = 0; n < num; n++) {
         clockWiseRotation(topIndexs);
         clockWiseRotation(edgeIndexs);
     }
 }
 
 /**
- * 计算与模型相对的x轴正方向真实指向的向量
- * 这个函数式由于我发现在threejs中, 模型建立以后，它所对应的xyz轴并不会因为旋转儿改变， 因此这就会导致多次旋转由于xyz轴问题变化而错误
- * 因此这里为模型添加一个指向它真实对应的x轴的方向，来为后续的旋转提供依据
- * @param {*} current {currentAxis: 当前所在轴0:x 1:y 2:z， currentDirection: []}
- * @param {*} target 相对于真实坐标系的向量
+ * 获取指定面顺时针旋转的向量
+ * @param {*} plan 
  */
-let convertLook = function(current, target){
-    //如果目标旋转的向量与当前方位在同一个轴, 那么指向的轴不会发生改变
-    if(target[current.currentAxis] !=0){
-        return current;
+let getVecotrByPlan = function(plan){
+    return planIndexs[plan].vector;
+}
+
+
+let Coordinate = function () {
+    this.x = [1, 0, 0];
+    this.y = [0, 1, 0];
+    this.z = [0, 0, 1];
+
+    /**
+     * 获取相对于当前模型，真实的旋转向量
+     * @param {*} target 真实坐标系中，旋转围绕的向量
+     */
+    this.convertVector = function (target) {
+        let result;
+        let realRorationAxis;
+        let realRotationValue;
+        for (let i = 0; i < 3; i++) {
+            if (target[i] != 0) {
+                realRorationAxis = i;
+                realRotationValue = target[i];
+                break;
+            }
+        }
+
+        if (this.x[realRorationAxis] != 0) {
+            let relativeValue = realRotationValue * this.x[realRorationAxis];
+            result = [relativeValue, 0, 0];
+        }
+
+        if (this.y[realRorationAxis] != 0) {
+            let relativeValue = realRotationValue * this.y[realRorationAxis];
+            result = [0, relativeValue, 0];
+        }
+
+        if (this.z[realRorationAxis] != 0) {
+            let relativeValue = realRotationValue * this.z[realRorationAxis];
+            result = [0, 0, relativeValue];
+        }
+
+        this.convertRelativeXYZ(result);
+        return result;
     }
 
     /**
-     * 获得相对于当前向量 与之对应的Y轴
-     * 这里的Y轴并非是真实坐标中的Y轴，应该理解成，将当前轴看做是真实坐标中的X轴时, 对应的Y轴是哪一个
-     * 比如在真实情况下
-     *  对于x轴来说， y轴即是它的y轴
-     *  对于y轴来说, z轴即是它的y轴
-     *  对于z轴来说, x轴即是它的y轴
-     *  可以通过转化坐标来理解这一段话
+     * 计算旋转之后， 当前模型相对的xyz轴在真实坐标系中的对应
+     * @param {*} relativeVecotr 
      */
-    let relativeY = current.currentAxis + 1 === 3 ? 0 : current.currentAxis + 1;
-    let relativeZ = current.currentAxis - 1 < 0 ? 2 : current.currentAxis - 1;
-
-    let finalAxis;
-    let value;
-    
-    if(target[relativeY] != 0){
+    this.convertRelativeXYZ = function (relativeVecotr) {
         /**
-         * 这里说明是根据当前轴相对的Y轴进行了旋转
-         * 在这种情况下，可以知道我们的最终目标轴肯定会是相对于当前轴的z轴
-         * x*z = y
-         * x*y = -z
+         * 这里首先做一个定义
+         * 当我们把x正轴作为基准轴时， y正轴是它的上位轴，z正轴时它的下位值
+         * 以此类推:
+         *  当我们把y正轴作为基准轴时， z正轴是它的上位轴，x正轴时它的下位值
+         *  当我们把z正轴作为基准轴时， x正轴是它的上位轴，y正轴时它的下位值
+         * 
+         *  然后思考空间坐标系，可以发现
+         *  当绕基准轴旋转， 上位轴的位置会变到下位轴， 下位轴位置变到上位轴的反方向
+         *  当绕基准轴反方向旋转， 上位轴的位置会变到下位轴反方向， 下位轴位置变到上位轴
          */
-         value = target[relativeY] * current.currentDirection[current.currentAxis] * (-1);
-         finalAxis = relativeZ;
-    }else{
-        /**
-         * 这里说明是根据当前轴相对的Z轴进行旋转
-         * 在这种情况下，可以知道我们的最终目标轴肯定会是相对于当前轴的Y轴
-         */
-        value = target[relativeZ] * current.currentDirection[current.currentAxis];
-        finalAxis = relativeY;
+
+        let threeAxis = [this.x, this.y, this.z];
+
+        //这里获取旋转相对的基准轴以及值
+        let baseAxisIndex;
+        let baseAxisValue;
+        for (let i = 0; i < 3; i++) {
+            if (relativeVecotr[i] != 0) {
+                baseAxisIndex = i;
+                baseAxisValue = relativeVecotr[i];
+                break;
+            }
+        }
+
+        //上位轴在threeAxis中的下标
+        let upperIndex = baseAxisIndex === 2 ? 0 : baseAxisIndex + 1;
+        //下位轴在threeAxis中的下标
+        let lowIndex = baseAxisIndex === 0 ? 2 : baseAxisIndex - 1;
+
+        let upperAxis = threeAxis[upperIndex];
+        let lowAxis = threeAxis[lowIndex];
+
+        let tempUpperAxis = [];
+        let tempLowAxis = [];
+        if (baseAxisValue > 0) {
+            //上位轴方向变到下位轴所在方向
+            tempUpperAxis[0] = lowAxis[0];
+            tempUpperAxis[1] = lowAxis[1];
+            tempUpperAxis[2] = lowAxis[2];
+            //下位轴方向变到上位轴的反方向
+
+            tempLowAxis[0] = -1 * upperAxis[0];
+            tempLowAxis[1] = -1 * upperAxis[1];
+            tempLowAxis[2] = -1 * upperAxis[2];
+        } else {
+            //上位轴方向变到下位轴的反方向
+            tempUpperAxis[0] = -1 * lowAxis[0];
+            tempUpperAxis[1] = -1 * lowAxis[1];
+            tempUpperAxis[2] = -1 * lowAxis[2];
+
+            //下位轴方向变到上位轴
+            tempLowAxis[0] = upperAxis[0];
+            tempLowAxis[1] = upperAxis[1];
+            tempLowAxis[2] = upperAxis[2];
+        }
+
+        for (let i = 0; i < 3; i++) {
+            threeAxis[upperIndex][i] = tempUpperAxis[i];
+            threeAxis[lowIndex][i] = tempLowAxis[i];
+        }
+
     }
-
-    current.currentAxis = finalAxis;
-    current.currentDirection = [0,0,0];
-    current.currentDirection[finalAxis] = value;
-    return current;
-}
-
-/**
- * 根据当前模型指向的X轴对应真实坐标系中的轴位置, 将目标旋转轴转换成对应模型的旋转轴
- * @param {*} current 
- * @param {*} target 
- */
-let realAxis = function(current, target){
-
-    //真实坐标旋转轴与当前轴为同一个轴
-    if(current.currentAxis === 0){
-        let isReverse = current.currentDirection[0] < 0;
-        target[current.currentAxis] = current.currentDirection[current.currentAxis] * target[current.currentAxis] * (-1);
-        return target;
-    }
-
-
 }
 
 module.exports = {
-    setPoint: function(points){
+    setPoint: function (points) {
         allPoint = points;
     },
-    getPoint: function(plan){
+    getPoint: function (plan) {
         let result = [];
-        let pointIndexs = planIndexs[plan];
-        for(let index in pointIndexs){
+        let pointIndexs = planIndexs[plan].points;
+        for (let index in pointIndexs) {
             result.push(allPoint[pointIndexs[index]]);
         }
         return result;
     },
-    roration
+    roration,
+    Coordinate,
+    getVecotrByPlan,
+    printIndex: function (plan) {
+        if (plan) {
+            for (let index in planIndexs[plan].points) {
+                let item = planIndexs[plan].points[index];
+                console.log(allPoint[item].initIndex);
+                console.log(allPoint[item].position);
+            }
+        }else{
+            console.log(allPoint[item].initIndex);
+            console.log(allPoint[item].position);
+        }
+        
+    }
 }
 

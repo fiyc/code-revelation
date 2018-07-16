@@ -69,6 +69,8 @@ let initBox = function () {
         currentBox.position.x = currentX;
         currentBox.position.y = currentY;
         currentBox.position.z = currentZ;
+        currentBox.coordinate = new matrix.Coordinate();
+        currentBox.initIndex = index;
         t.addScene(currentBox);
         allBoxs.push(currentBox);
     }
@@ -79,6 +81,7 @@ let initBox = function () {
 let test = function () {
     let rotationBox1 = new THREE.Object3D();
     let boxes = matrix.getPoint('right');
+    debugger;
     for (let index in boxes) {
         rotationBox1.add(boxes[index]);
     }
@@ -86,24 +89,30 @@ let test = function () {
     t.addScene(rotationBox1);
 
     let rotationIndex = 0;
-    var axis = new THREE.Vector3(0, 0, 1);
+    var axis = new THREE.Vector3(-1, 0, 0);
+    let axisVector = [-1, 0, 0];
     let interval = setInterval(function(){
         rotationIndex += 1;
         if(rotationIndex >= 45){
             clearInterval(interval);
-            return;
             t.scene.remove(rotationBox1);
 
             for (let index in boxes) {
-                boxes[index].rotateOnAxis(axis, Math.PI / 2);
+                if(index === "7" || index === "0" ||index === "6"){
+                    // debugger;
+                }
+                let realAxis = boxes[index].coordinate.convertVector(axisVector);
+                let currentAxis = new THREE.Vector3(realAxis[0], realAxis[1], realAxis[2]);
+                boxes[index].rotateOnAxis(currentAxis, Math.PI / 2);
                 t.addScene(boxes[index]);
             }
 
-            // test();
+            matrix.roration('right', 1);
+
             return;
         }
-        boxes[6].rotateOnAxis(axis, Math.PI / 90);
-        // rotationBox1.rotateOnAxis(axis, Math.PI / 30);
+
+        rotationBox1.rotateOnAxis(axis, Math.PI / 90);
     }, 100);
 }
 
@@ -119,29 +128,72 @@ let test2 = function () {
 
     let rotationIndex = 0;
     var axis = new THREE.Vector3(0, -1, 0);
+    let axisVector = [0, -1, 0];
     let interval = setInterval(function(){
         rotationIndex += 1;
         if(rotationIndex >= 45){
             clearInterval(interval);
-            test();
-            console.log(boxes[2]);
-            return;
             t.scene.remove(rotationBox);
 
             for (let index in boxes) {
-                boxes[index].rotateOnAxis(axis, Math.PI / 2);
+                let realAxis = boxes[index].coordinate.convertVector(axisVector);
+                let currentAxis = new THREE.Vector3(realAxis[0], realAxis[1], realAxis[2]);
+                boxes[index].rotateOnAxis(currentAxis, Math.PI / 2);
                 t.addScene(boxes[index]);
             }
+
+            matrix.roration('buttom', 1);
+            matrix.printIndex('buttom');
 
             test();
             return;
         }
-        boxes[2].rotateOnAxis(axis, Math.PI /90);
-        // rotationBox.rotateOnAxis(axis, Math.PI / 30);
+        // boxes[2].rotateOnAxis(axis, Math.PI /90);
+        rotationBox.rotateOnAxis(axis, Math.PI / 90);
     }, 100);
 }
 
 
+let rotation = function(plan, cb){
+    let rotationBox = new THREE.Object3D();
+    let boxes = matrix.getPoint(plan);
+
+    for (let index in boxes) {
+        rotationBox.add(boxes[index]);
+    }
+
+    t.addScene(rotationBox);
+
+    let speed = 45;
+    let vector = matrix.getVecotrByPlan(plan);
+    var axis = new THREE.Vector3(vector[0], vector[1], vector[2]);
+
+    let intervalIndex = 0;
+    let interval = setInterval(function(){
+        intervalIndex += 1;
+        if(intervalIndex > speed){
+            clearInterval(interval);
+            t.scene.remove(rotationBox);
+
+            for (let index in boxes) {
+                let realAxis = boxes[index].coordinate.convertVector(vector);
+                let currentAxis = new THREE.Vector3(realAxis[0], realAxis[1], realAxis[2]);
+                boxes[index].rotateOnAxis(currentAxis, Math.PI / 2);
+                t.addScene(boxes[index]);
+            }
+
+            matrix.roration(plan, 1);
+
+            if(typeof cb === "function"){
+                cb();
+            }
+            return;
+        }
+
+        let radius = Math.PI / (2 * speed);
+        rotationBox.rotateOnAxis(axis, radius);
+    }, 100);
+}
 
 
 
@@ -152,5 +204,10 @@ module.exports = function () {
     t.beginRender();
 
     // test();
-    test2();
+    // test2();
+    rotation('buttom', () => {
+        rotation('right', () => {
+            rotation('top');
+        });
+    });
 }
