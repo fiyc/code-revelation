@@ -6,6 +6,7 @@
     - 魔方应用逻辑
 */
 
+const globalSpeed = 3;
 
 //初始化六种魔方材质
 var m_red = 0xDC143C;
@@ -268,7 +269,7 @@ let bindEvent = function () {
 
         if (!isRotation) {
             isRotation = true;
-            allRotation(allRotationFlag, 5, function () {
+            allRotation(allRotationFlag, globalSpeed, function () {
                 isRotation = false;
             });
         }
@@ -337,13 +338,13 @@ let bindEvent = function () {
             //整体旋转
             if(pre === ''){
                 let allRotationFlag = keyCode - 38 < 0 ? 3 :  keyCode - 38;
-                allRotation(allRotationFlag, 5, () => {
+                allRotation(allRotationFlag, globalSpeed, () => {
                     isRotation = false;
                 });
             }else{
                 let rotationInfo = getRotationParam(pre, keyCode);
                 if(rotationInfo){
-                    rotation(rotationInfo.plan, 5, ()=>{
+                    rotation(rotationInfo.plan, globalSpeed, ()=>{
                         isRotation = false;
                     }, rotationInfo.isAnti);
                 }else{
