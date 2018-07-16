@@ -212,6 +212,36 @@ let Coordinate = function () {
     }
 }
 
+/**
+ * 判断魔方是否正确归位
+ */
+let isFinish = function(){
+    let result = true;
+    for(let i=0; i<26; i++){
+        let current = allPoint[i].coordinate;
+        let next = allPoint[i+1].coordinate;
+
+        if(!isSameVector(current.x, next.x) || !isSameVector(current.y, next.y) || !isSameVector(current.z, next.z)){
+            result = false;
+            break;
+        }
+    }
+
+    return result;
+}
+
+let isSameVector = function(base, target){
+    let result = true;
+    for(let i=0; i<3; i++){
+        if(base[i] !== target[i]){
+            result = false;
+            break;
+        }
+    }
+
+    return result;
+}
+
 module.exports = {
     setPoint: function (points) {
         allPoint = points;
@@ -231,6 +261,7 @@ module.exports = {
     roration,
     Coordinate,
     getVecotrByPlan,
+    isFinish,
     printIndex: function (plan) {
         if (plan) {
             for (let index in planIndexs[plan].points) {

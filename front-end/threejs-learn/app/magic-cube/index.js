@@ -87,7 +87,6 @@ let initBox = function () {
  * @param {*} isAnti 是否逆时针旋转
  */
 let rotation = function (plan, speed, cb,isAnti) {
-    console.log(`${plan} - ${isAnti}`);
     let rotationBox = new THREE.Object3D();
     let boxes = matrix.getPoint(plan);
 
@@ -133,6 +132,11 @@ let rotation = function (plan, speed, cb,isAnti) {
 
             if (typeof cb === "function") {
                 cb();
+            }
+
+            if(matrix.isFinish()){
+                alert("Win!");
+                return;
             }
             return;
         }
@@ -215,7 +219,14 @@ let allRotation = function (direct, speed, cb) {
 }
 
 
+let randomNum = 0;
 let roationRandom = function () {
+    randomNum += 1;
+
+    if(randomNum >= 30){
+        beginTime();
+        return;
+    }
 
     let all = Math.floor(Math.random() * 2) === 0;
 
@@ -396,6 +407,72 @@ let getRotationParam = function(pre, keyCode){
     return result;
 }
 
+/**
+ * 开启计时器
+ */
+let timeInterval;
+let timeDom = document.getElementById('time');
+let beginTime = function(){
+    let begin = new Date();
+    timeInterval = setInterval(function(){
+        let current = new Date();
+        let playTime = current - begin;
+        let showTimeStr = convertTime(playTime);
+        timeDom.innerHTML = showTimeStr;
+    }, 1000);
+}
+
+/**
+ * 将毫秒数转化成可视化的时间字符串
+ * @param {} millions 
+ */
+let convertTime = function(millions){
+    let hour = '00';
+    let min = '00';
+    let second = '00';
+    let millionsecond = '000';
+
+    let hourBase = 60 * 60 * 1000;
+    if(millions >= hourBase){
+        hour = Math.round(millions / hourBase);
+        millions -= hour * hourBase;
+
+        if(hour <= 9){
+            hour = `0${hour}`;
+        }
+    }
+
+    let minBase = 60 * 1000;
+    if(millions >= minBase){
+        min = Math.round(millions / minBase);
+        millions -= min * minBase;
+
+        if(min <= 9){
+            min = `0${min}`;
+        }
+    }
+
+    let secondBase = 1000;
+    if(millions >= secondBase){
+        second = Math.round(millions / secondBase);
+        millions -= second * secondBase;
+
+        if(second <= 9){
+            second = `0${second}`;
+        }
+    }
+
+    if(millions >= 100){
+        millionsecond = millions;
+    }else if(millions < 100 && millions > 9){
+        millionsecond = `0${millions}`;
+    }else if(millions > 0){
+        millionsecond = `00${millions}`;
+    }
+
+    let result = `${hour} : ${min} : ${second}`;
+    return result;
+}
 
 module.exports = function () {
     bindEvent();
@@ -403,7 +480,7 @@ module.exports = function () {
     // initGrid();
     initBox();
     t.beginRender();
-    // roationRandom();
+    roationRandom();
     // test();
     // test2();
 }
