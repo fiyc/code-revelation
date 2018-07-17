@@ -6,7 +6,7 @@
     - 魔方应用逻辑
 */
 
-const globalSpeed = 3;
+const globalSpeed = 2;
 
 //初始化六种魔方材质
 var m_red = 0xDC143C;
@@ -37,7 +37,7 @@ let matrix = require('./matrix-handle');
 let t = threeCommon();
 
 let setCamera = function () {
-    t.camera.position.x = 0;
+    t.camera.position.x = 800;
     t.camera.position.y = 400;
     t.camera.position.z = 800;
     t.camera.lookAt(0, 0, 0);
@@ -77,6 +77,195 @@ let initBox = function () {
     }
 
     matrix.setPoint(allBoxs);
+}
+
+/**
+ * 根据鼠标点击的xy来获取场景中的模型
+ */
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+let GetCobeByClickPoint = function(x, y){
+    mouse.x = ( x / t.width ) * 2 - 1;
+    mouse.y = - ( y / t.height ) * 2 + 1;
+
+    // 通过鼠标点的位置和当前相机的矩阵计算出raycaster
+    raycaster.setFromCamera( mouse, t.camera );
+
+    var intersects = raycaster.intersectObjects( t.scene.children );
+    if(intersects && intersects.length >0){
+        return intersects[0];
+    }else{
+        return null;
+    }
+}
+
+/**
+ * 修正点击坐标， 修正后的位置为模型所点击面的中心位置
+ * @param {*} cobeInfo 
+ */
+let correctPosition = function(cobeInfo){
+    let result = [];
+    result.push(cobeInfo.object.position.x);
+    result.push(cobeInfo.object.position.y);
+    result.push(cobeInfo.object.position.z);
+
+    let clickPoint = cobeInfo.point;
+
+    let cx = Math.abs(Math.abs(clickPoint.x) - 150);
+    let cy = Math.abs(Math.abs(clickPoint.y) - 150);
+    let cz = Math.abs(Math.abs(clickPoint.z) - 150);
+
+    if(cx <= cy && cx <= cz){
+        result[0] = clickPoint.x > 0 ? 150 : -150;
+    }else if(cy <= cx && cy <= cz){
+        result[1] = clickPoint.y > 0 ? 150 : -150;
+    }else{
+        result[2] = clickPoint.z > 0 ? 150 : -150;
+    }
+
+    return result;
+}
+
+/**
+ * 根据开始坐标与结束坐标，判断滑动将旋转的面以及顺时逆势
+ * @param {*} begin 
+ * @param {*} end 
+ */
+let getPlanAndAnti = function(begin, end){
+    let result = [];
+    /**
+     * 首先判断开始与结束是否在同一直线上
+     * 判断是否在同一直线上的依据是， xyz三个坐标中有两个坐标相同
+     */
+
+     let sameCount = 0;
+     //旋转围绕的轴
+     let rotationAxisIndex = 0;
+
+     //触摸面对应不变的轴
+     let touchAxisIndex = 0;
+
+     //移动方向的轴
+     let moveAxisIndex = 0;
+     for(let i=0; i<3; i++){
+         if(begin[i] === end[i]){
+             sameCount += 1;
+
+             if(Math.abs(begin[i]) !== 150){
+                 rotationAxisIndex = i;
+             }else{
+                touchAxisIndex = i;
+             }
+         }else{
+            moveAxisIndex = i;
+         }
+     }
+
+     //不是一条直线， 无效的鼠标动作
+     if(sameCount !== 2){
+         return result;
+     }
+
+     let planPositoin = begin[rotationAxisIndex];
+     let moveDistance = end[moveAxisIndex] - begin[moveAxisIndex];
+     if(rotationAxisIndex === 0){
+         //绕x轴翻转
+         result['plan'] = planPositoin < 0 ? "left" : (planPositoin > 0 ? "right" : "midv");
+     }else if(rotationAxisIndex === 1){
+         //绕y轴旋转
+        result['plan'] = planPositoin < 0 ? "buttom" : (planPositoin > 0 ? "top" : "midh");
+     }else{
+         //绕z轴旋转
+         result['plan'] = planPositoin < 0 ? "back" : (planPositoin > 0 ? "front" : "midt");
+     }
+
+     let isAnti = false;
+     switch(result['plan']){
+         case 'left': {
+            if((touchAxisIndex === 1 && begin[touchAxisIndex] === 150) || (touchAxisIndex === 2 && begin[touchAxisIndex] === -150)){
+                isAnti = moveDistance > 0 ? false : true;
+            }else{
+                isAnti = moveDistance > 0 ? false : true;
+            }
+            break;
+         }
+
+         case 'right':{
+            if((touchAxisIndex === 1 && begin[touchAxisIndex] === 150) || (touchAxisIndex === 2 && begin[touchAxisIndex] === -150)){
+                isAnti = moveDistance > 0 ? true : false;
+            }else{
+                isAnti = moveDistance > 0 ? false : true;
+            }
+            break;
+         }
+
+         case 'midv':{
+            if((touchAxisIndex === 1 && begin[touchAxisIndex] === 150) || (touchAxisIndex === 2 && begin[touchAxisIndex] === -150)){
+                isAnti = moveDistance > 0 ? true : false;
+            }else{
+                isAnti = moveDistance > 0 ? false : true;
+            }
+            break;
+         }
+
+         case 'buttom': {
+            if((touchAxisIndex === 0 && begin[touchAxisIndex] === -150) || (touchAxisIndex === 2 && begin[touchAxisIndex] === 150)){
+                isAnti = moveDistance > 0 ? false : true;
+            }else{
+                isAnti = moveDistance > 0 ? true : false;
+            }
+            break;
+         }
+
+         case 'top': {
+            if((touchAxisIndex === 0 && begin[touchAxisIndex] === -150) || (touchAxisIndex === 2 && begin[touchAxisIndex] === 150)){
+                isAnti = moveDistance > 0 ? false : true;
+            }else{
+                isAnti = moveDistance > 0 ? true : false;
+            }
+            break;
+         }
+
+         case 'midh': {
+            if((touchAxisIndex === 0 && begin[touchAxisIndex] === -150) || (touchAxisIndex === 2 && begin[touchAxisIndex] === 150)){
+                isAnti = moveDistance > 0 ? false : true;
+            }else{
+                isAnti = moveDistance > 0 ? true : false;
+            }
+            break;
+         }
+
+         case 'back':{
+            if((touchAxisIndex === 0 && begin[touchAxisIndex] === -150) || (touchAxisIndex === 1 && begin[touchAxisIndex] === 150)){
+                isAnti = moveDistance > 0 ? false : true;
+            }else{
+                isAnti = moveDistance > 0 ? true : false;
+            }
+             break;
+         }
+
+         case 'front':{
+            if((touchAxisIndex === 0 && begin[touchAxisIndex] === -150) || (touchAxisIndex === 1 && begin[touchAxisIndex] === 150)){
+                isAnti = moveDistance > 0 ? true : false;
+            }else{
+                isAnti = moveDistance > 0 ? false : true;
+            }
+             break;
+         }
+
+         case 'midt':{
+            if((touchAxisIndex === 0 && begin[touchAxisIndex] === -150) || (touchAxisIndex === 1 && begin[touchAxisIndex] === 150)){
+                isAnti = moveDistance > 0 ? true : false;
+            }else{
+                isAnti = moveDistance > 0 ? false : true;
+            }
+             break;
+         }
+
+     }
+
+     result['isAnti'] = isAnti;
+     return result;
 }
 
 /**
@@ -247,23 +436,62 @@ let isRotation = false;
  */
 let bindEvent = function () {
     var canvas = document.getElementById('canvas-frame');
+    var canvasPosition = canvas.getBoundingClientRect();
     var p = document.getElementById("msg");
     let mouseDownX;
     let mouseDownY;
     let moduseDown = false;
 
+    let begin;
+    let end;
     canvas.addEventListener('mousedown', function (e) {
         moduseDown = true;
         mouseDownX = e.clientX;
         mouseDownY = e.clientY;
-        let msg = `${mouseDownX}, ${mouseDownY}`;
-        // p.innerHTML = msg;
+
+        let x = mouseDownX - canvasPosition.x;
+        let y = mouseDownY - canvasPosition.y;
+        let box = GetCobeByClickPoint(x, y);
+        let correctPositon = correctPosition(box);
+
+        if(correctPositon.length === 3){
+            begin = correctPositon;
+        }else{
+            begin = null;
+        }
+        console.log(box.point);
     });
 
     canvas.addEventListener('mouseup', function (e) {
+        debugger;
         moduseDown = false;
         mouseUpX = e.clientX;
         mouseUpY = e.clientY;
+
+        if(begin){
+            let x = mouseUpX - canvasPosition.x;
+            let y = mouseUpY - canvasPosition.y;
+            let box = GetCobeByClickPoint(x, y);
+            let correctPositon = correctPosition(box);
+
+            if(correctPositon.length === 3){
+                end = correctPositon;
+            }else{
+                begin = null;
+                end = null;
+            }
+
+            if(begin && end){
+                let planAndAnti = getPlanAndAnti(begin, end);
+                // alert(`${planAndAnti['plan']} , ${planAndAnti['isAnti']}`);
+                if(planAndAnti['plan']){
+                    rotation(planAndAnti['plan'], globalSpeed, function(){}, !planAndAnti['isAnti']);
+                }
+            }
+        }
+
+
+
 
         let allRotationFlag;
 
@@ -278,7 +506,7 @@ let bindEvent = function () {
             allRotationFlag = mouseDownY - mouseUpY < 0 ? 2 : 0;
         }
 
-        if (!isRotation) {
+        if (!isRotation && false) {
             isRotation = true;
             allRotation(allRotationFlag, globalSpeed, function () {
                 isRotation = false;
@@ -480,7 +708,7 @@ module.exports = function () {
     // initGrid();
     initBox();
     t.beginRender();
-    roationRandom();
+    // roationRandom();
     // test();
     // test2();
 }
