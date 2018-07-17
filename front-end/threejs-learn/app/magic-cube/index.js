@@ -6,7 +6,7 @@
     - 魔方应用逻辑
 */
 
-const globalSpeed = 2;
+const globalSpeed = 3;
 
 //初始化六种魔方材质
 var m_red = 0xDC143C;
@@ -37,7 +37,7 @@ let matrix = require('./matrix-handle');
 let t = threeCommon();
 
 let setCamera = function () {
-    t.camera.position.x = 800;
+    t.camera.position.x = 0;
     t.camera.position.y = 400;
     t.camera.position.z = 800;
     t.camera.lookAt(0, 0, 0);
@@ -105,6 +105,9 @@ let GetCobeByClickPoint = function(x, y){
  */
 let correctPosition = function(cobeInfo){
     let result = [];
+    if(!cobeInfo ){
+        return result;
+    }
     result.push(cobeInfo.object.position.x);
     result.push(cobeInfo.object.position.y);
     result.push(cobeInfo.object.position.z);
@@ -183,17 +186,22 @@ let getPlanAndAnti = function(begin, end){
      switch(result['plan']){
          case 'left': {
             if((touchAxisIndex === 1 && begin[touchAxisIndex] === 150) || (touchAxisIndex === 2 && begin[touchAxisIndex] === -150)){
+                //触碰到上或后面
                 isAnti = moveDistance > 0 ? false : true;
             }else{
-                isAnti = moveDistance > 0 ? false : true;
+                //触碰到底或前面
+                isAnti = moveDistance > 0 ? true : false;
             }
             break;
          }
 
          case 'right':{
+             debugger;
             if((touchAxisIndex === 1 && begin[touchAxisIndex] === 150) || (touchAxisIndex === 2 && begin[touchAxisIndex] === -150)){
+                //触碰到上或后面
                 isAnti = moveDistance > 0 ? true : false;
             }else{
+                //触碰到底或前面
                 isAnti = moveDistance > 0 ? false : true;
             }
             break;
@@ -201,8 +209,10 @@ let getPlanAndAnti = function(begin, end){
 
          case 'midv':{
             if((touchAxisIndex === 1 && begin[touchAxisIndex] === 150) || (touchAxisIndex === 2 && begin[touchAxisIndex] === -150)){
-                isAnti = moveDistance > 0 ? true : false;
+                //触碰到上或后面
+                isAnti = moveDistance > 0 ?  true : false;
             }else{
+                //触碰到底或前面
                 isAnti = moveDistance > 0 ? false : true;
             }
             break;
@@ -210,54 +220,64 @@ let getPlanAndAnti = function(begin, end){
 
          case 'buttom': {
             if((touchAxisIndex === 0 && begin[touchAxisIndex] === -150) || (touchAxisIndex === 2 && begin[touchAxisIndex] === 150)){
-                isAnti = moveDistance > 0 ? false : true;
-            }else{
+                //触碰到左或前面
                 isAnti = moveDistance > 0 ? true : false;
+            }else{
+                //触碰到右或后面
+                isAnti = moveDistance > 0 ? false : true;
             }
             break;
          }
 
          case 'top': {
             if((touchAxisIndex === 0 && begin[touchAxisIndex] === -150) || (touchAxisIndex === 2 && begin[touchAxisIndex] === 150)){
-                isAnti = moveDistance > 0 ? false : true;
-            }else{
+                //触碰到左或前面
                 isAnti = moveDistance > 0 ? true : false;
+            }else{
+                //触碰到右或后面
+                isAnti = moveDistance > 0 ? false : true;
             }
             break;
          }
 
          case 'midh': {
             if((touchAxisIndex === 0 && begin[touchAxisIndex] === -150) || (touchAxisIndex === 2 && begin[touchAxisIndex] === 150)){
-                isAnti = moveDistance > 0 ? false : true;
-            }else{
+                //触碰到左或前面
                 isAnti = moveDistance > 0 ? true : false;
+            }else{
+                //触碰到右或后面
+                isAnti = moveDistance > 0 ? false : true;
             }
             break;
          }
 
          case 'back':{
             if((touchAxisIndex === 0 && begin[touchAxisIndex] === -150) || (touchAxisIndex === 1 && begin[touchAxisIndex] === 150)){
-                isAnti = moveDistance > 0 ? false : true;
-            }else{
+                //触碰到左或上面
                 isAnti = moveDistance > 0 ? true : false;
+            }else{
+                //触碰到右或下面
+                isAnti = moveDistance > 0 ? false : true;
             }
              break;
          }
 
          case 'front':{
             if((touchAxisIndex === 0 && begin[touchAxisIndex] === -150) || (touchAxisIndex === 1 && begin[touchAxisIndex] === 150)){
-                isAnti = moveDistance > 0 ? true : false;
-            }else{
+                //触碰到左或上面
                 isAnti = moveDistance > 0 ? false : true;
+            }else{
+                isAnti = moveDistance > 0 ? true : false;
             }
              break;
          }
 
          case 'midt':{
             if((touchAxisIndex === 0 && begin[touchAxisIndex] === -150) || (touchAxisIndex === 1 && begin[touchAxisIndex] === 150)){
-                isAnti = moveDistance > 0 ? true : false;
-            }else{
+                //触碰到左或上面
                 isAnti = moveDistance > 0 ? false : true;
+            }else{
+                isAnti = moveDistance > 0 ? true : false;
             }
              break;
          }
@@ -463,7 +483,6 @@ let bindEvent = function () {
     });
 
     canvas.addEventListener('mouseup', function (e) {
-        debugger;
         moduseDown = false;
         mouseUpX = e.clientX;
         mouseUpY = e.clientY;
@@ -485,7 +504,8 @@ let bindEvent = function () {
                 let planAndAnti = getPlanAndAnti(begin, end);
                 // alert(`${planAndAnti['plan']} , ${planAndAnti['isAnti']}`);
                 if(planAndAnti['plan']){
-                    rotation(planAndAnti['plan'], globalSpeed, function(){}, !planAndAnti['isAnti']);
+                    rotation(planAndAnti['plan'], globalSpeed, function(){}, planAndAnti['isAnti']);
+                    return;
                 }
             }
         }
@@ -506,7 +526,7 @@ let bindEvent = function () {
             allRotationFlag = mouseDownY - mouseUpY < 0 ? 2 : 0;
         }
 
-        if (!isRotation && false) {
+        if (!isRotation) {
             isRotation = true;
             allRotation(allRotationFlag, globalSpeed, function () {
                 isRotation = false;
@@ -708,7 +728,7 @@ module.exports = function () {
     // initGrid();
     initBox();
     t.beginRender();
-    // roationRandom();
+    roationRandom();
     // test();
     // test2();
 }
