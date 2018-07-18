@@ -51,6 +51,7 @@
 * 2018-07-11 17:46 - 网络模型旋转的常用技巧和方法 2  @[front-end\threejs-learn\app\demos\d_15.js](#)
 * 2018-07-13 13:22 - 魔方旋转模型 @[front-end\threejs-learn\app\magic-cube\matrix-handle.js](#)
 
+### magic-cube 完成一个3阶魔方功能后, 尝试开发一个通用的多阶魔方
 
 
 
