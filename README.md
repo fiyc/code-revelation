@@ -54,5 +54,5 @@
 ### magic-cube 完成一个3阶魔方功能后, 尝试开发一个通用的多阶魔方
 * 2018-07-18 18:10 - 添加应用配置项 @[front-end\magic-cube\app\config.js](#)
 * 2018-07-18 18:34 - 魔方使用的3d位置转换工具 @[front-end\magic-cube\app\matrix-util.js](#)
-
+* 2018-07-19 00:36 - 添加matrix-util测试文件 @[front-end/magic-cube/test/matrix-util-test.js](#)
 
