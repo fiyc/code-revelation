@@ -52,6 +52,7 @@
 * 2018-07-13 13:22 - 魔方旋转模型 @[front-end\threejs-learn\app\magic-cube\matrix-handle.js](#)
 
 ### magic-cube 完成一个3阶魔方功能后, 尝试开发一个通用的多阶魔方
-
+* 2018-07-18 18:10 - 添加应用配置项 @[front-end\magic-cube\app\config.js](#)
+* 2018-07-18 18:34 - 魔方使用的3d位置转换工具 @[front-end\magic-cube\app\matrix-util.js](#)
 
 
