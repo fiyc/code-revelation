@@ -339,15 +339,15 @@ let mouseAction = function () {
         x = x - canvasPositionInfo.x;
         y = y - canvasPositionInfo.y;
 
-        mouse.x = (x / t.width) * 2 - 1;
-        mouse.y = - (y / t.height) * 2 + 1;
+        mouse.x = (x / context.width) * 2 - 1;
+        mouse.y = - (y / context.height) * 2 + 1;
 
         // 通过鼠标点的位置和当前相机的矩阵计算出raycaster
         raycaster.setFromCamera(mouse, context.camera);
 
         var intersects = raycaster.intersectObjects(context.scene.children);
         if (intersects && intersects.length > 0) {
-            return intersects[1];
+            return intersects[0];
         } else {
             return null;
         }
@@ -366,7 +366,7 @@ let mouseAction = function () {
         result.clickPoint.push(clickObject.object.position.z);
 
         //点击坐标必定有一个轴贴近这个面的坐标
-        let planPosition = positionRule[0] + config.singleSize / 2;
+        let planPosition = Math.abs(positionRule[0]) + config.singleSize / 2;
 
         let clickPoint = clickObject.point;
         let cx = Math.abs(Math.abs(clickPoint.x) - planPosition);
@@ -429,7 +429,7 @@ let mouseAction = function () {
         let index = 0;
         for(let i=0; i < positionRule.length; i++){
             if(positionRule[i] === beginPosition[rotationAxis]){
-                index = i;
+                index = positionRule.length - i - 1;
                 break;
             }
         }
@@ -478,6 +478,7 @@ let mouseAction = function () {
         }
 
         let isAnti = false;
+        alert(`${vector2_begin}, ${vector2_end}`);
         if(vector2_begin.x === vector2_end.x){
             let distance = vector2_end.y - vector2_begin.y;
 
@@ -486,7 +487,7 @@ let mouseAction = function () {
 
             isAnti = cal1 * cal2 > 0;
         }else{
-            let distance = vector2_end.x - vector2_end.y;
+            let distance = vector2_end.x - vector2_end.x;
 
             let cal1 = vector2_begin.y > 0 ? 1 : -1;
             let cal2 = distance > 0 ? -1 : 1;
@@ -510,6 +511,7 @@ let mouseAction = function () {
             return;
         }
 
+        isClickBox = true;
         let correctPoint = correctPosition(clickBox);
         beginBox = {
             correctPosition: correctPoint,
@@ -537,9 +539,14 @@ let mouseAction = function () {
     }
 
     let mouseUp = function(x, y){
-        if(isClickBox){
+        if(isClickBox && beginBox && endBox){
             //旋转模型
+            console.log(beginBox.correctPosition.clickPoint);
+            console.log(endBox.correctPosition.clickPoint);
             let rotationInfo = calculateRotation();
+            console.log(rotationInfo);
+
+            alert(`begin: ${beginBox.correctPosition.clickPoint}, end: ${endBox.correctPosition.clickPoint}, rotation: ${rotationInfo.axis},${rotationInfo.index}, ${rotationInfo.isAnti} `);
             rotation(rotationInfo.axis, rotationInfo.index, rotationInfo.isAnti, config.normalSpeed);
         }else{
             //旋转相机
