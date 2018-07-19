@@ -36,6 +36,8 @@ let init = function (canvasId) {
     initCamera();
     initBoxes();
     context.beginRender();
+
+    return mouseAction();
 }
 
 
@@ -315,9 +317,12 @@ let mouseAction = function () {
     //初次点击是否命中模型
     let isClickBox = false;
 
+    let beginPoint = [];
+    let endPoint = [];
+
+
     //初次点击命中的模型
     let beginBox = null;
-
     //最后一次命中的有效模型
     let endBox = null;
 
@@ -496,6 +501,62 @@ let mouseAction = function () {
         }
     }
 
+    let mouseClick = function(x, y){
+        beginPoint = [x, y];
+        let clickBox = clickTarget(x, y);
+        
+        if(!clickBox){
+            isClickBox = false;
+            return;
+        }
+
+        let correctPoint = correctPosition(clickBox);
+        beginBox = {
+            correctPosition: correctPoint,
+            boxInfo: clickBox
+        };
+    }
+
+    let mouseMove = function(x, y){
+        if(!isClickBox){
+            return;
+        }
+
+        let clickBox = clickTarget(x, y);
+        if(!clickBox){
+            return;
+        }
+
+        let correctPoint = correctPosition(clickBox);
+        if(isSameLine(beginBox.correctPosition.clickPoint, correctPoint.clickPoint)){
+            endBox = {
+                correctPosition: correctPoint,
+                boxInfo: clickBox
+            }
+        }
+    }
+
+    let mouseUp = function(x, y){
+        if(isClickBox){
+            //旋转模型
+            let rotationInfo = calculateRotation();
+            rotation(rotationInfo.axis, rotationInfo.index, rotationInfo.isAnti, config.normalSpeed);
+        }else{
+            //旋转相机
+        }
+
+        isClickBox = false;
+        beginBox = null;
+        endBox = null;
+        beginPoint = [];
+        endPoint = [];
+    }
+
+    return {
+        mouseClick,
+        mouseMove,
+        mouseUp
+    };
 }
 
 module.exports = init;
