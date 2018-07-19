@@ -71,7 +71,7 @@ let initBoxes = function () {
     if (config.orderNum % 2 === 1) {
         minPositionRule = -1 * ((config.orderNum - 1) / 2) * config.singleSize;
     } else {
-        minPositionRule = -1 * (config.orderNum / 2) * (config.singleSize / 2);
+        minPositionRule = -1 * ((config.orderNum / 2 - 1) *  config.singleSize + config.singleSize / 2);
     }
 
     for (let i = 0; i < config.orderNum; i++) {
