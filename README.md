@@ -55,4 +55,7 @@
 * 2018-07-18 18:10 - 添加应用配置项 @[front-end\magic-cube\app\config.js](#)
 * 2018-07-18 18:34 - 魔方使用的3d位置转换工具 @[front-end\magic-cube\app\matrix-util.js](#)
 * 2018-07-19 00:36 - 添加matrix-util测试文件 @[front-end/magic-cube/test/matrix-util-test.js](#)
-
+* 2018-07-19 09:30 - threejs模型绘制模块 @[front-end\magic-cube\app\draw-util.js](#)
+* 2018-07-19 11:34 - 魔方程序入口 @[front-end\magic-cube\app\main.js](#)
+* 2018-07-19 11:36 - 纹理维护模块 @[front-end\magic-cube\app\material-util.js](#)
+* 2018-07-19 14:50 - geometry工具类, 也是一个多面体贴图的例子 @[front-end\magic-cube\app\geometry-util.js](#)

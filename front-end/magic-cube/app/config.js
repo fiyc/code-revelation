@@ -14,7 +14,10 @@ let defaultConfig = {
     //打乱操作时，旋转速度
     confusionSpeed: 2,
     //正常操作时，旋转速度
-    normalSpeed: 3
+    normalSpeed: 5,
+
+    //相机初始位置
+    cameraPosition: [0 , 400, 800]
 };
 
 module.exports = defaultConfig;

@@ -140,6 +140,7 @@ let init = function(orderNum){
         //使用排序过后的模型集合的序列去目标集合中找到对应的返回值
         for(let i in mappingResult){
             let targetIndex = mappingResult[i].index;
+            targets[targetIndex].matrixIndex = targetIndex;
             result.push(targets[targetIndex]);
         }
 
@@ -192,15 +193,15 @@ let init = function(orderNum){
        }
 
        if(singleMapFn && typeof singleMapFn === "function"){
-            let globalVector = [0, 0, 0];
-            globalVector[planInfo.directory] = isAnti ? 1 : -1;
-            for(let index = 0; index < targets.length; index++){
+            for(let index = 0; index < result.length; index++){
+                let old = targets[targetPlanBoxes[index].matrixIndex];
+                targets[targetPlanBoxes[index].matrixIndex] = result[index];
 
-                singleMapFn(result[index], targets[index], globalVector);
+                singleMapFn(result[index], old);
             }
        }
 
-       return result;
+       return targets;
     }
 
 

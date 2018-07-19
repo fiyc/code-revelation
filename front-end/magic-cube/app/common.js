@@ -59,7 +59,9 @@ let init = function (param) {
 	}
 
 	return {
+		scene,
 		camera,
+		render,
 		width,
 		height,
 		setCamera: (c) => {
@@ -70,8 +72,7 @@ let init = function (param) {
 		},
 		beginRender: () => {
 			setTimeout(render, 100);
-		},
-		scene
+		}
 	};
 }
 

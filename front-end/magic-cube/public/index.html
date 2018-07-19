@@ -1,0 +1,40 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Three.js example</title>
+  <style>
+    div#canvas-border{
+      border: 5px solid black;
+    }
+    div#canvas-frame {
+      border: 5px solid black;
+      cursor: pointer;
+      width: 100%;
+      height: 600px;
+      background-color: #EEEEEE;
+      float: left;
+    }
+
+    div#msg-content {
+      float: left;
+    }
+  </style>
+  <script src="lib/three.min.js"></script>
+  <script src="lib/stats.min.js"></script>
+</head>
+
+<body>
+ <div id="time">
+00 : 00 : 00
+ </div> 
+<div id="canvas-border">
+  <div id='canvas-frame'>
+  </div>
+</div>
+<script src="bundle.js"></script>
+</body>
+
+</html>
