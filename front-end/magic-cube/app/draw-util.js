@@ -478,7 +478,6 @@ let mouseAction = function () {
         }
 
         let isAnti = false;
-        alert(`${vector2_begin}, ${vector2_end}`);
         if(vector2_begin.x === vector2_end.x){
             let distance = vector2_end.y - vector2_begin.y;
 
@@ -487,7 +486,7 @@ let mouseAction = function () {
 
             isAnti = cal1 * cal2 > 0;
         }else{
-            let distance = vector2_end.x - vector2_end.x;
+            let distance = vector2_end.x - vector2_begin.x;
 
             let cal1 = vector2_begin.y > 0 ? 1 : -1;
             let cal2 = distance > 0 ? -1 : 1;
@@ -541,12 +540,7 @@ let mouseAction = function () {
     let mouseUp = function(x, y){
         if(isClickBox && beginBox && endBox){
             //旋转模型
-            console.log(beginBox.correctPosition.clickPoint);
-            console.log(endBox.correctPosition.clickPoint);
             let rotationInfo = calculateRotation();
-            console.log(rotationInfo);
-
-            alert(`begin: ${beginBox.correctPosition.clickPoint}, end: ${endBox.correctPosition.clickPoint}, rotation: ${rotationInfo.axis},${rotationInfo.index}, ${rotationInfo.isAnti} `);
             rotation(rotationInfo.axis, rotationInfo.index, rotationInfo.isAnti, config.normalSpeed);
         }else{
             //旋转相机
