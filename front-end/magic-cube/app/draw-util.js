@@ -46,7 +46,24 @@ let init = function (canvasId) {
  * 位置信息读取配置
  */
 let initCamera = function () {
-    let defaultPositon = config.cameraPosition;
+    let positonInfos = config.cameraPosition;
+    context.camera.circlePlanInfo = new circleCoordinate(positonInfos[0], positonInfos[1], positonInfos[2]);
+    let defaultPositon = context.camera.circlePlanInfo.getPosition();
+    context.camera.position.x = defaultPositon[0];
+    context.camera.position.y = defaultPositon[1];
+    context.camera.position.z = defaultPositon[2];
+    context.camera.lookAt(0, 0, 0);
+}
+
+/**
+ * 移动相机
+ * @param {*} changeAngleZ 与z轴夹角增加角度
+ * @param {*} changeAngleX 与x轴夹角增加角度
+ */
+let moveCamera = function(changeAngleZ, changeAngleX){
+    context.camera.circlePlanInfo.addZ(changeAngleZ);
+    context.camera.circlePlanInfo.addX(changeAngleX);
+    let defaultPositon = context.camera.circlePlanInfo.getPosition();
     context.camera.position.x = defaultPositon[0];
     context.camera.position.y = defaultPositon[1];
     context.camera.position.z = defaultPositon[2];
@@ -291,6 +308,47 @@ let Coordinate = function () {
 }
 
 /**
+ * 一个球面坐标计算类
+ */
+let circleCoordinate = function(r, angleX, angleZ){
+    this.r = r;
+    this.angleX = angleX;
+    this.angleY = angleY;
+
+    /**
+     * 
+     * @param {*} angle 
+     */
+    this.addY = function(angle){
+        this.angleY += angle;
+        if(this.angleY > Math.PI * 2){
+            this.angleY -= Math.PI * 2;
+        }
+    };
+
+    /**
+     * 增加与x轴的夹角
+     * @param {*} angle 
+     */
+    this.addX = function(angle){
+        this.angleX += angle;
+        if(this.angleX > Math.PI * 2){
+            this.angleX -= Math.PI * 2;
+        }
+    };
+
+    /**
+     * 计算出位于世界坐标系的坐标
+     */
+    this.getPosition = function(){
+        let x = this.r * Math.sin(this.angleZ) * Math.cos(this.angleX);
+        let y = this.r * Math.sin(this.angleX) * Math.cos(this.angleZ);
+        let z = this.r * Math.cos(this.angleZ);
+        return [x, y, z];
+    }
+}
+
+/**
  * 针对threejs mesh对象定义的公共方法
  * 用于将模型的positon这是为模型本身的nextPosition
  */
@@ -519,7 +577,10 @@ let mouseAction = function () {
     }
 
     let mouseMove = function(x, y){
+        endPoint = [x, y];
         if(!isClickBox){
+            //初次点击未命中模型, 做旋转相机运动
+            moveCamera(0, Math.PI / 180);
             return;
         }
 
