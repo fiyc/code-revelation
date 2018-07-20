@@ -18,14 +18,14 @@ let defaultConfig = {
 
     
     /**
-     * 相机初始位置 [r, 与z轴夹角, 与x轴夹角]
+     * 相机初始位置
      * [
      * 相机距离远点的距离,
-     * 相机向量在z-x平面上的投影与z轴正方向的夹角
-     * 相机向量在z-y平面上的投影与z轴正方向的夹角
+     * 相机向量与y轴的夹角
+     * 相机向量在x-z平面上的投影与z轴正方向的夹角
      * ]
      */
-    cameraPosition: [1000, 0, 0],
+    cameraPosition: [1000, Math.PI / 2, 0],
 };
 
 module.exports = defaultConfig;

@@ -46,6 +46,7 @@ let init = function (canvasId) {
  * 位置信息读取配置
  */
 let initCamera = function () {
+    debugger;
     let positonInfos = config.cameraPosition;
     context.camera.circlePlanInfo = new circleCoordinate(positonInfos[0], positonInfos[1], positonInfos[2]);
     let defaultPositon = context.camera.circlePlanInfo.getPosition();
@@ -58,11 +59,11 @@ let initCamera = function () {
 /**
  * 移动相机
  * @param {*} changeAngleZ 与z轴夹角增加角度
- * @param {*} changeAngleX 与x轴夹角增加角度
+ * @param {*} changeAngleY 与x轴夹角增加角度
  */
-let moveCamera = function(changeAngleZ, changeAngleX){
+let moveCamera = function(changeAngleZ, changeAngleY){
     context.camera.circlePlanInfo.addZ(changeAngleZ);
-    context.camera.circlePlanInfo.addX(changeAngleX);
+    context.camera.circlePlanInfo.addY(changeAngleY);
     let defaultPositon = context.camera.circlePlanInfo.getPosition();
     context.camera.position.x = defaultPositon[0];
     context.camera.position.y = defaultPositon[1];
@@ -310,30 +311,39 @@ let Coordinate = function () {
 /**
  * 一个球面坐标计算类
  */
-let circleCoordinate = function(r, angleX, angleZ){
-    this.r = r;
-    this.angleX = angleX;
-    this.angleY = angleY;
+let circleCoordinate = function(r, angleY, angleZ){
+    this.r = r; //相机距离远点的距离
+    this.angleY = angleY; //相机向量与y轴的夹角
+    this.angleZ = angleZ; //相机向量在x-z平面上的投影与z轴正方向的夹角
 
     /**
      * 
      * @param {*} angle 
      */
+    this.YStep = -1;
     this.addY = function(angle){
-        this.angleY += angle;
-        if(this.angleY > Math.PI * 2){
-            this.angleY -= Math.PI * 2;
+        let next = this.angleY + angle * this.YStep;
+        if(next > Math.PI || next < 0){
+            YStep = YStep * (-1);
+
+            if(next > Math.PI){
+                next = 2 * Math.PI - next;
+            }else{
+                next = -1 * next;
+            }
         }
+
+        this.angleY = next;
     };
 
     /**
      * 增加与x轴的夹角
      * @param {*} angle 
      */
-    this.addX = function(angle){
-        this.angleX += angle;
-        if(this.angleX > Math.PI * 2){
-            this.angleX -= Math.PI * 2;
+    this.addZ = function(angle){
+        this.angleZ += angle;
+        if(this.angleZ > Math.PI * 2){
+            this.angleZ -= Math.PI * 2;
         }
     };
 
@@ -341,9 +351,9 @@ let circleCoordinate = function(r, angleX, angleZ){
      * 计算出位于世界坐标系的坐标
      */
     this.getPosition = function(){
-        let x = this.r * Math.sin(this.angleZ) * Math.cos(this.angleX);
-        let y = this.r * Math.sin(this.angleX) * Math.cos(this.angleZ);
-        let z = this.r * Math.cos(this.angleZ);
+        let z = this.r * Math.sin(this.angleY) * Math.cos(this.angleZ);
+        let x = this.r * Math.sin(this.angleY) * Math.sin(this.angleZ);
+        let y = this.r * Math.cos(this.angleY);
         return [x, y, z];
     }
 }
@@ -580,6 +590,7 @@ let mouseAction = function () {
         endPoint = [x, y];
         if(!isClickBox){
             //初次点击未命中模型, 做旋转相机运动
+            debugger;
             moveCamera(0, Math.PI / 180);
             return;
         }
