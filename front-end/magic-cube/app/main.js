@@ -9,7 +9,8 @@
 
 let config = require('./config');
 
-let orderNum = Number(prompt('请输入魔方阶数'));
+// let orderNum = Number(prompt('请输入魔方阶数'));
+let orderNum = 3;
 let singleSize = 100;
 if(!orderNum || orderNum < 2 || orderNum > 12){
     orderNum = 3;
@@ -59,4 +60,16 @@ canvas.addEventListener('mousemove', function(e){
 canvas.addEventListener('mouseup', function(e){
     action.mouseUp(e.clientX, e.clientY);
     mouseDown = false;
+});
+
+document.addEventListener('keydown', function(e){
+    if(e.keyCode === 40){
+        action.testMove(0, 1);
+    }else if(e.keyCode === 37){
+        action.testMove(-1, 0);
+    }else if(e.keyCode === 38){
+        action.testMove(0, -1);
+    }else if(e.keyCode === 39){
+        action.testMove(1, 0);
+    }
 });

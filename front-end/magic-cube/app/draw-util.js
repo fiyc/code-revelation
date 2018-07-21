@@ -46,7 +46,6 @@ let init = function (canvasId) {
  * 位置信息读取配置
  */
 let initCamera = function () {
-    debugger;
     let positonInfos = config.cameraPosition;
     context.camera.circlePlanInfo = new circleCoordinate(positonInfos[0], positonInfos[1], positonInfos[2]);
     let defaultPositon = context.camera.circlePlanInfo.getPosition();
@@ -54,6 +53,8 @@ let initCamera = function () {
     context.camera.position.y = defaultPositon[1];
     context.camera.position.z = defaultPositon[2];
     context.camera.lookAt(0, 0, 0);
+
+    
 }
 
 /**
@@ -69,6 +70,8 @@ let moveCamera = function(changeAngleZ, changeAngleY){
     context.camera.position.y = defaultPositon[1];
     context.camera.position.z = defaultPositon[2];
     context.camera.lookAt(0, 0, 0);
+
+    context.camera.up.y = defaultPositon[3];
 }
 
 /**
@@ -315,25 +318,37 @@ let circleCoordinate = function(r, angleY, angleZ){
     this.r = r; //相机距离远点的距离
     this.angleY = angleY; //相机向量与y轴的夹角
     this.angleZ = angleZ; //相机向量在x-z平面上的投影与z轴正方向的夹角
-
+    this.upY = 1;
     /**
      * 
      * @param {*} angle 
      */
-    this.YStep = -1;
     this.addY = function(angle){
-        let next = this.angleY + angle * this.YStep;
-        if(next > Math.PI || next < 0){
-            YStep = YStep * (-1);
-
-            if(next > Math.PI){
-                next = 2 * Math.PI - next;
-            }else{
-                next = -1 * next;
-            }
+        let step = 1;
+        if(this.angleZ >= 279 || this.angleZ <= 90){
+            step = -1;
+        }else{
+            step = 1;
         }
 
-        this.angleY = next;
+        this.angleY += angle * step;
+
+        if(this.angleY > 180 || this.angleY < 0){
+            this.changeZ();
+            this.upY *= -1;
+
+
+            if(this.angleY > 180){
+                this.angleY = 360 - this.angleY;
+                // this.angleY -= 180;
+            }else{
+                this.angleY = Math.abs(this.angleY);
+                // this.angleY += 180;
+            }
+        }
+        
+
+        console.log(`this y: ${this.angleY}, this x: ${this.angleZ}`);
     };
 
     /**
@@ -342,19 +357,36 @@ let circleCoordinate = function(r, angleY, angleZ){
      */
     this.addZ = function(angle){
         this.angleZ += angle;
-        if(this.angleZ > Math.PI * 2){
-            this.angleZ -= Math.PI * 2;
+        if(this.angleZ > 360){
+            this.angleZ -= 360;
         }
     };
+
+    /**
+     * 将夹角Z变化到相对于x轴对称的角
+     */
+    this.changeZ = function(){
+        if(this.angleZ <= 180){
+            this.angleZ = 180 - this.angleZ;
+        }else{
+            this.angleZ = 360 - (this.angleZ - 180)
+        }
+    }
 
     /**
      * 计算出位于世界坐标系的坐标
      */
     this.getPosition = function(){
-        let z = this.r * Math.sin(this.angleY) * Math.cos(this.angleZ);
-        let x = this.r * Math.sin(this.angleY) * Math.sin(this.angleZ);
-        let y = this.r * Math.cos(this.angleY);
-        return [x, y, z];
+        let angleY = this.angleY * Math.PI / 180;
+        let angleZ = this.angleZ * Math.PI / 180;
+        // let z = this.r * Math.sin(angleY) * Math.cos(angleZ);
+        let t = this.r * Math.cos(Math.abs(angleY - Math.PI / 2));
+        let z = t * Math.cos(angleZ);
+        // let x = this.r * Math.sin(angleY) * Math.sin(angleZ);
+        let x = t * Math.sin(angleZ);
+        let y = this.r * Math.cos(angleY);
+        console.log(`${Math.round(x)}, ${Math.round(y)}, ${Math.round(z)}`);
+        return [x, y, z, this.upY];
     }
 }
 
@@ -590,8 +622,7 @@ let mouseAction = function () {
         endPoint = [x, y];
         if(!isClickBox){
             //初次点击未命中模型, 做旋转相机运动
-            debugger;
-            moveCamera(0, Math.PI / 180);
+            moveCamera(0, 1);
             return;
         }
 
@@ -625,10 +656,15 @@ let mouseAction = function () {
         endPoint = [];
     }
 
+    let testMove = function(z, y){
+        moveCamera(z, y);
+    }
+
     return {
         mouseClick,
         mouseMove,
-        mouseUp
+        mouseUp,
+        testMove
     };
 }
 

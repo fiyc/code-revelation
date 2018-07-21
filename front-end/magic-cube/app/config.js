@@ -25,7 +25,7 @@ let defaultConfig = {
      * 相机向量在x-z平面上的投影与z轴正方向的夹角
      * ]
      */
-    cameraPosition: [1000, Math.PI / 2, 0],
+    cameraPosition: [1000, 90, 0],
 };
 
 module.exports = defaultConfig;
