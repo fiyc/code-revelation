@@ -64,11 +64,11 @@ canvas.addEventListener('mouseup', function(e){
 
 document.addEventListener('keydown', function(e){
     if(e.keyCode === 40){
-        action.testMove(0, 1);
+        action.testMove(0, -1);
     }else if(e.keyCode === 37){
         action.testMove(-1, 0);
     }else if(e.keyCode === 38){
-        action.testMove(0, -1);
+        action.testMove(0, 1);
     }else if(e.keyCode === 39){
         action.testMove(1, 0);
     }

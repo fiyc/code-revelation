@@ -53,25 +53,36 @@ let initCamera = function () {
     context.camera.position.y = defaultPositon[1];
     context.camera.position.z = defaultPositon[2];
     context.camera.lookAt(0, 0, 0);
-
-    
 }
 
 /**
  * 移动相机
- * @param {*} changeAngleZ 与z轴夹角增加角度
- * @param {*} changeAngleY 与x轴夹角增加角度
+ * @param {*} value [x, y] x: 水平方向移动距离, y: 垂直方向移动距离
  */
-let moveCamera = function(changeAngleZ, changeAngleY){
-    context.camera.circlePlanInfo.addZ(changeAngleZ);
-    context.camera.circlePlanInfo.addY(changeAngleY);
-    let defaultPositon = context.camera.circlePlanInfo.getPosition();
-    context.camera.position.x = defaultPositon[0];
-    context.camera.position.y = defaultPositon[1];
-    context.camera.position.z = defaultPositon[2];
-    context.camera.lookAt(0, 0, 0);
+let moveCamera = function(value){
+    let horMove = Math.abs(value[0]);
+    let horMoveFlag = value[0] >= 0 ? 1: -1;
+    let verMove = Math.abs(value[1]);
+    let verMoveFlag = value[1] >= 0 ? 1: -1;
 
-    context.camera.up.y = defaultPositon[3];
+    for(let i=0; i<horMove; i++){
+        context.camera.circlePlanInfo.move([horMoveFlag, 0]);
+    }
+
+    for(let i=0; i<verMove; i++){
+        context.camera.circlePlanInfo.move([0, verMoveFlag]);
+    }
+    
+    
+    let nextPositon = context.camera.circlePlanInfo.getPosition();
+    let nextUp = context.camera.circlePlanInfo.getUp();
+    context.camera.position.x = nextPositon[0];
+    context.camera.position.y = nextPositon[1];
+    context.camera.position.z = nextPositon[2];
+    context.camera.up.x = nextUp[0];
+    context.camera.up.y = nextUp[1];
+    context.camera.up.z = nextUp[2];
+    context.camera.lookAt(0, 0, 0);
 }
 
 /**
@@ -314,7 +325,7 @@ let Coordinate = function () {
 /**
  * 一个球面坐标计算类
  */
-let circleCoordinate = function(r, angleY, angleZ){
+let circleCoordinate_bk = function(r, angleY, angleZ){
     this.r = r; //相机距离远点的距离
     this.angleY = angleY; //相机向量与y轴的夹角
     this.angleZ = angleZ; //相机向量在x-z平面上的投影与z轴正方向的夹角
@@ -387,6 +398,136 @@ let circleCoordinate = function(r, angleY, angleZ){
         let y = this.r * Math.cos(angleY);
         console.log(`${Math.round(x)}, ${Math.round(y)}, ${Math.round(z)}`);
         return [x, y, z, this.upY];
+    }
+}
+
+/**
+ * 球面运动计算
+ * @param {*} initParam 
+ *  {
+ *      r: 相机与世界坐标原点距离
+ *      direction: 相机头指向向量 [x, y]
+ *      position: 相机位置 [x, y]
+ *  }
+ */
+let circleCoordinate = function(initParam){
+    let defaultInit = {
+        r : 1000,
+        direction: [0, 1],
+        position: [0, 90]
+    };
+
+    defaultInit = Object.assign(defaultInit, initParam);
+    this.r = defaultInit.r;
+    this.direction = defaultInit.direction;
+    this.position = defaultInit.position;
+
+
+    /**
+     * 当前相机位置的纬度不为0 或180时的移动处理逻辑
+     * @param {*} value 移动位置 [x, y] x:[-1, 1] y:[-1, 1]
+     */
+    this.move = function(value){
+        if(this.position[1] === 0 || this.position[0] === 180){
+            this.moveOnPole(value);
+            return;
+        }
+        
+        //计算移动后经纬度
+        let moveStep = [0, 0];
+        if(this.direction[1] === 1){
+            //当前相机方向指向上
+            moveStep = value;
+        }else if(this.direction[1] === -1){
+            //当前相机方向指向下
+            moveStep = [-1 * value[0], -1 * value[1]];
+        }else if(this.direction[0] === 1){
+            //当前相机方向指向右
+            moveStep = [value[1], -1 * value[0]];
+        }else{
+            //当前相机方向指向左
+            moveStep = [-1 * value[1], value[0]];
+        }
+
+        this.position[0] += moveStep[0];
+        this.position[1] += moveStep[1];
+
+        //计算移动后方向
+        if(this.position[1] === 0){
+            this.direction = [0, 1];
+        }else if(this.position[1] === 180){
+            this.direction = [0, -1];
+        }
+    }
+
+    /**
+     * 当前相机位置的纬度为0 或180时的移动处理逻辑
+     * @param {*} value 移动位置 [x, y] x:[-1, 1] y:[-1, 1]
+     */
+    this.moveOnPole = function(value){
+        let poleFlag = this.position[1] === 0 ? -1 : 1;
+
+        //计算移动后相机头的指向
+        let nextDirection = [0, 0];
+        if(value[0] === 0){
+            //垂直方向移动
+            nextDirection[1] = value[1] * this.direction[1];
+        }else{
+            //水平方向移动
+            nextDirection[0] = value[0] * poleFlag;
+        }
+
+        //计算移动后经纬度
+        let nextLat = this.position[1] + (-1 * poleFlag);
+        let nextLon = 0;
+
+        if(value[0] === 0){
+            //垂直方向移动
+            if(value[1] === 1){
+                //向前运动时才修改经度
+                nextLon = this.position[0] + 180;
+            }else{
+                nextLon = this.position[0];
+            }
+
+            if(nextLon >= 360){
+                nextLon -= 360;
+            }
+        }else{
+            //水平方向移动
+            nextLon = this.position[0] + value[0] * 90 * poleFlag;
+            if(nextLon >= 360){
+                nextLon -= 360;
+            }else if(nextLon < 0){
+                nextLon += 360;
+            }
+        }
+
+        this.direction = nextDirection;
+        this.position = [nextLon, nextLat];
+    }
+
+    this.getPosition = function(){
+        /**
+         * θ 为与y轴夹角 angleY
+         * φ 为与z轴夹角 angleZ
+         * z=rsinθcosφ.
+         * x=rsinθsinφ.
+         * y=rcosθ.
+         */
+        let angleY = (180 - this.position[1]) * Math.PI / 180;
+        let angleZ = this.position[0] * Math.PI / 180;
+
+        
+        let x = this.r * Math.sin(angleY) * Math.sin(angleZ);
+        let y = this.r * Math.cos(angleY);
+        let z = this.r * Math.sin(angleY) * Math.cos(angleZ);
+
+        return [x, y, z];
+    }
+
+    this.getUp = function(){
+        return [this.direction[0], this.direction[1], 0];
     }
 }
 
@@ -656,8 +797,9 @@ let mouseAction = function () {
         endPoint = [];
     }
 
-    let testMove = function(z, y){
-        moveCamera(z, y);
+    let testMove = function(x, y){
+        debugger;
+        moveCamera([x, y]);
     }
 
     return {
