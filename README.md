@@ -7,7 +7,10 @@
 * 2018-07-10 10:44 - request请求封装 @[python\flib\frequest.py](#)
 * 2018-07-10 11:14 - 爬虫数据解析装饰器 @[python\flib\crawler-decorator.py](#)
 * 2018-07-10 14:04 - 使用一个基本爬虫来测试封装的框架 @[python\crawler\test-crawler.py](#)
+
 ## 前端
+### node
+* 2018-08-03 16:35 - 写了一个node后台代码自动生成工具这里 @[这里](https://github.com/fiyc/node-cli)
 ### webpack
 * 2018-07-09 22:15 - 第一次`webpack`学习 @[front-end/webpack-learn/](#)
 
