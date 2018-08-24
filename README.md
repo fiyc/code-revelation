@@ -8,6 +8,12 @@
 * 2018-07-10 11:14 - 爬虫数据解析装饰器 @[python\flib\crawler-decorator.py](#)
 * 2018-07-10 14:04 - 使用一个基本爬虫来测试封装的框架 @[python\crawler\test-crawler.py](#)
 
+## 机器学习
+* 2018-08-24 10:41 - 机器学习算法原理与编程实践 @[machine-learning\](#)
+* 2018-08-24 10:58 - 第一个例子, 校验环境安装成功 @[machine-learning\chapter-1\mytest1.py](#)
+* 2018-08-24 11:28 - numpy矢量化编程例子 @[machine-learning\chapter-1\fragment1.py](#)
+* 2018-08-24 11:37 - 理解数学公式与numpy矩阵运算 - 矩阵的初始化 @[machine-learning\chapter-1\fragment2.py](#)
+* 2018-08-24 11:40 - 理解数学公式与numpy矩阵运算 - 矩阵的元素运算 @[machine-learning\chapter-1\fragment3.py](#)
 ## 前端
 ### node
 * 2018-08-03 16:35 - 写了一个node后台代码自动生成工具这里 @[这里](https://github.com/fiyc/node-cli)
