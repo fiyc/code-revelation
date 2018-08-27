@@ -14,6 +14,10 @@
 * 2018-08-24 11:28 - numpy矢量化编程例子 @[machine-learning\chapter-1\fragment1.py](#)
 * 2018-08-24 11:37 - 理解数学公式与numpy矩阵运算 - 矩阵的初始化 @[machine-learning\chapter-1\fragment2.py](#)
 * 2018-08-24 11:40 - 理解数学公式与numpy矩阵运算 - 矩阵的元素运算 @[machine-learning\chapter-1\fragment3.py](#)
+* 2018-08-24 15:42 - 矩阵的乘法: 矩阵乘矩阵 @[machine-learning\chapter-1\fragment4.py](#)
+* 2018-08-24 16:19 - 矩阵的转置 @[machine-learning\chapter-1\fragment5.py](#)
+* 2018-08-24 17:11 - 矩阵的其他操作 @[machine-learning\chapter-1\fragment6.py](#)
+
 ## 前端
 ### node
 * 2018-08-03 16:35 - 写了一个node后台代码自动生成工具这里 @[这里](https://github.com/fiyc/node-cli)
