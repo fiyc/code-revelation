@@ -17,6 +17,12 @@
 * 2018-08-24 15:42 - 矩阵的乘法: 矩阵乘矩阵 @[machine-learning\chapter-1\fragment4.py](#)
 * 2018-08-24 16:19 - 矩阵的转置 @[machine-learning\chapter-1\fragment5.py](#)
 * 2018-08-24 17:11 - 矩阵的其他操作 @[machine-learning\chapter-1\fragment6.py](#)
+* 2018-08-27 16:06 - Linalg线性代数库-矩阵的行列式 @[machine-learning\chapter-1\fragment7.py](#)
+* 2018-08-27 18:03 - Linalg线性代数库-矩阵的逆 @[machine-learning\chapter-1\fragment8.py](#)
+* 2018-08-27 18:02 - Linalg线性代数库-矩阵的对称 @[machine-learning\chapter-1\fragment9.py](#)
+* 2018-08-27 18:07 - Linalg线性代数库-矩阵的秩 @[machine-learning\chapter-1\fragment10.py](#)
+* 2018-08-27 18:19 - Linalg线性代数库-可逆矩阵的求解 @[machine-learning\chapter-1\fragment11.py](#)
+* 2018-08-27 18:31 - 欧式距离计算  @[machine-learning\chapter-1\fragment12.py](#)
 
 ## 前端
 ### node

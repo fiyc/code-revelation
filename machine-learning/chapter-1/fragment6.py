@@ -12,5 +12,22 @@
 '''
 
 from numpy import *
-myMatrix = mat([[1,2,3], [4,5,6]])
+
+## 矩阵的行列数
+myMatrix = mat([[1,2,3], [4,5,6], [7,8,9]])
 print(shape(myMatrix))
+
+
+## 矩阵的按行切片
+myScl1 = myMatrix[0]
+print(myScl1)
+
+## 矩阵的按列切片
+myScl2 = myMatrix.T[0]
+print(myScl2)
+
+## 矩阵的复制
+myCpmat = myMatrix.copy()
+print(myCpmat)
+
+print(myMatrix < myMatrix.T)
