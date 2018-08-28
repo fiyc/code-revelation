@@ -26,4 +26,8 @@ from numpy import *
 myMatrix = mat([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 myMatrix2 = mat([[1], [2], [3]])
 
-print(myMatrix * myMatrix2)
+mat1 = mat([1,2])
+mat2 = mat([[1,3], [3,1]])
+print(mat2 * mat1.T)
+
+# print(myMatrix * myMatrix2)

@@ -28,6 +28,9 @@
 * 2018-08-28 13:39 - 夹角余弦 @[machine-learning\chapter-1\fragment15.py](#)
 * 2018-08-28 14:11 - 汉明距离 @[machine-learning\chapter-1\fragment16.py](#)
 * 2018-08-28 14:23 - 杰拉德相似系数 @[machine-learning\chapter-1\fragment17.py](#)
+* 2018-08-28 16:50 - 特征值和特征向量 @[machine-learning\chapter-1\fragment18.py](#)
+* 2018-08-28 17:32 - 标准化欧式距离 @[machine-learning\chapter-1\fragment19.py](#)
+* 2018-08-28 18:05 - 表和线性结构的可视化 @[machine-learning\chapter-1\fragment20.py](#)
 
 ## 前端
 ### node
