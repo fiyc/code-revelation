@@ -23,10 +23,11 @@
 * 2018-08-27 18:07 - Linalg线性代数库-矩阵的秩 @[machine-learning\chapter-1\fragment10.py](#)
 * 2018-08-27 18:19 - Linalg线性代数库-可逆矩阵的求解 @[machine-learning\chapter-1\fragment11.py](#)
 * 2018-08-27 18:31 - 欧式距离计算  @[machine-learning\chapter-1\fragment12.py](#)
-* 2018-08-28 11:23 - 曼哈顿距离 @[\machine-learning\chapter-1\fragment13.py](#)
-* 2018-08-28 13:37 - 切比夫距离 @[\machine-learning\chapter-1\fragment14.py](#)
-* 2018-08-28 13:39 - 夹角余弦 @[\machine-learning\chapter-1\fragment15.py](#)
-* 2018-08-28 14:11 - 汉明距离 @[\machine-learning\chapter-1\fragment16.py](#)
+* 2018-08-28 11:23 - 曼哈顿距离 @[machine-learning\chapter-1\fragment13.py](#)
+* 2018-08-28 13:37 - 切比夫距离 @[machine-learning\chapter-1\fragment14.py](#)
+* 2018-08-28 13:39 - 夹角余弦 @[machine-learning\chapter-1\fragment15.py](#)
+* 2018-08-28 14:11 - 汉明距离 @[machine-learning\chapter-1\fragment16.py](#)
+* 2018-08-28 14:23 - 杰拉德相似系数 @[machine-learning\chapter-1\fragment17.py](#)
 
 ## 前端
 ### node
