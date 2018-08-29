@@ -44,12 +44,12 @@ class NBayes(object):
     导入和训练数据集, 生成算法必须的参数和数据结构
     '''
     def train_set(self, trainset, classVec):
-        self.cate_prob(classVec)
-        self.doclength = len(trainset)
+        self.cate_prob(classVec) # 计算分类所占比例
+        self.doclength = len(trainset) # 计算一共有多少个文本
         tempset = set()
         [ tempset.add(word) for doc in trainset for word in doc ]
-        self.vocabulary = list(tempset)
-        self.vocablen = len(self.vocabulary)
+        self.vocabulary = list(tempset) # 整个所有出现的单词
+        self.vocablen = len(self.vocabulary) # 所有单词去重总数
         self.calc_wordfreq(trainset)
         self.build_tdm()
 
