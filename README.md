@@ -31,6 +31,9 @@
 * 2018-08-28 16:50 - 特征值和特征向量 @[machine-learning\chapter-1\fragment18.py](#)
 * 2018-08-28 17:32 - 标准化欧式距离 @[machine-learning\chapter-1\fragment19.py](#)
 * 2018-08-28 18:05 - 表和线性结构的可视化 @[machine-learning\chapter-1\fragment20.py](#)
+* 2018-08-29 10:13 - 使用jieba分词 @[machine-learning\chapter-2\fragment1.py](#)
+* 2018-08-29 15:11 - 朴素贝叶斯类 @[machine-learning\chapter-2\Nbayes_lib.py](#)
+* 2018-08-29 15:12 - 使用朴素贝叶斯类 @[machine-learning\chapter-2\fragment2.py](#)
 
 ## 前端
 ### node
