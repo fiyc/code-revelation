@@ -34,6 +34,9 @@
 * 2018-08-29 10:13 - 使用jieba分词 @[machine-learning\chapter-2\fragment1.py](#)
 * 2018-08-29 15:11 - 朴素贝叶斯类 @[machine-learning\chapter-2\Nbayes_lib.py](#)
 * 2018-08-29 15:12 - 使用朴素贝叶斯类 @[machine-learning\chapter-2\fragment2.py](#)
+* 2018-09-03 15:42 - 使用Sickit-Learn 的KMeans进行聚类计算 @[machine-learning\chapter-2\fragment3.py](#)
+* 2018-09-03 15:48 - 消元法求原方程组的解 @[machine-learning\chapter-5\fragment1.py](#)
+* 2018-09-03 17:36 - BP网络的实现 @[machine-learning\chapter-6\fragment1.py](#)
 
 ## 前端
 ### node
