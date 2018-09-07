@@ -8,6 +8,42 @@
 * 2018-07-10 11:14 - 爬虫数据解析装饰器 @[python\flib\crawler-decorator.py](#)
 * 2018-07-10 14:04 - 使用一个基本爬虫来测试封装的框架 @[python\crawler\test-crawler.py](#)
 
+## python-hack
+* 2018-09-07 14:29 - TCP客户端 @[python\hack\tcp_client.py](#)
+* 2018-09-07 14:38 - UDP客户端 @[python\hack\udp_client.py](#)
+* 2018-09-07 14:39 - TCP服务器 @[python\hack\tcp_server.py](#)
+* 2018-09-07 16:52 - 取代netcat @[python\hack\netcat.py](#)
+
+## 机器学习
+* 2018-08-24 10:41 - 机器学习算法原理与编程实践 @[machine-learning\](#)
+* 2018-08-24 10:58 - 第一个例子, 校验环境安装成功 @[machine-learning\chapter-1\mytest1.py](#)
+* 2018-08-24 11:28 - numpy矢量化编程例子 @[machine-learning\chapter-1\fragment1.py](#)
+* 2018-08-24 11:37 - 理解数学公式与numpy矩阵运算 - 矩阵的初始化 @[machine-learning\chapter-1\fragment2.py](#)
+* 2018-08-24 11:40 - 理解数学公式与numpy矩阵运算 - 矩阵的元素运算 @[machine-learning\chapter-1\fragment3.py](#)
+* 2018-08-24 15:42 - 矩阵的乘法: 矩阵乘矩阵 @[machine-learning\chapter-1\fragment4.py](#)
+* 2018-08-24 16:19 - 矩阵的转置 @[machine-learning\chapter-1\fragment5.py](#)
+* 2018-08-24 17:11 - 矩阵的其他操作 @[machine-learning\chapter-1\fragment6.py](#)
+* 2018-08-27 16:06 - Linalg线性代数库-矩阵的行列式 @[machine-learning\chapter-1\fragment7.py](#)
+* 2018-08-27 18:03 - Linalg线性代数库-矩阵的逆 @[machine-learning\chapter-1\fragment8.py](#)
+* 2018-08-27 18:02 - Linalg线性代数库-矩阵的对称 @[machine-learning\chapter-1\fragment9.py](#)
+* 2018-08-27 18:07 - Linalg线性代数库-矩阵的秩 @[machine-learning\chapter-1\fragment10.py](#)
+* 2018-08-27 18:19 - Linalg线性代数库-可逆矩阵的求解 @[machine-learning\chapter-1\fragment11.py](#)
+* 2018-08-27 18:31 - 欧式距离计算  @[machine-learning\chapter-1\fragment12.py](#)
+* 2018-08-28 11:23 - 曼哈顿距离 @[machine-learning\chapter-1\fragment13.py](#)
+* 2018-08-28 13:37 - 切比夫距离 @[machine-learning\chapter-1\fragment14.py](#)
+* 2018-08-28 13:39 - 夹角余弦 @[machine-learning\chapter-1\fragment15.py](#)
+* 2018-08-28 14:11 - 汉明距离 @[machine-learning\chapter-1\fragment16.py](#)
+* 2018-08-28 14:23 - 杰拉德相似系数 @[machine-learning\chapter-1\fragment17.py](#)
+* 2018-08-28 16:50 - 特征值和特征向量 @[machine-learning\chapter-1\fragment18.py](#)
+* 2018-08-28 17:32 - 标准化欧式距离 @[machine-learning\chapter-1\fragment19.py](#)
+* 2018-08-28 18:05 - 表和线性结构的可视化 @[machine-learning\chapter-1\fragment20.py](#)
+* 2018-08-29 10:13 - 使用jieba分词 @[machine-learning\chapter-2\fragment1.py](#)
+* 2018-08-29 15:11 - 朴素贝叶斯类 @[machine-learning\chapter-2\Nbayes_lib.py](#)
+* 2018-08-29 15:12 - 使用朴素贝叶斯类 @[machine-learning\chapter-2\fragment2.py](#)
+* 2018-09-03 15:42 - 使用Sickit-Learn 的KMeans进行聚类计算 @[machine-learning\chapter-2\fragment3.py](#)
+* 2018-09-03 15:48 - 消元法求原方程组的解 @[machine-learning\chapter-5\fragment1.py](#)
+* 2018-09-03 17:36 - BP网络的实现 @[machine-learning\chapter-6\fragment1.py](#)
+
 ## 前端
 ### node
 * 2018-08-03 16:35 - 写了一个node后台代码自动生成工具这里 @[这里](https://github.com/fiyc/node-cli)
