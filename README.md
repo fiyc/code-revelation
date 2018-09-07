@@ -8,6 +8,11 @@
 * 2018-07-10 11:14 - 爬虫数据解析装饰器 @[python\flib\crawler-decorator.py](#)
 * 2018-07-10 14:04 - 使用一个基本爬虫来测试封装的框架 @[python\crawler\test-crawler.py](#)
 
+## python-hack
+* 2018-09-07 14:29 - TCP客户端 @[python\hack\tcp_client.py](#)
+* 2018-09-07 14:38 - UDP客户端 @[python\hack\udp_client.py](#)
+* 2018-09-07 14:39 - TCP服务器 @[python\hack\tcp_server.py](#)
+
 ## 机器学习
 * 2018-08-24 10:41 - 机器学习算法原理与编程实践 @[machine-learning\](#)
 * 2018-08-24 10:58 - 第一个例子, 校验环境安装成功 @[machine-learning\chapter-1\mytest1.py](#)
