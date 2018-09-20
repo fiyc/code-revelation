@@ -2,6 +2,7 @@
 ## 通用
 * 2018-07-09 17:00 - 添加几个常用的文件头注释代码片段  @[other/snippets.json](#)
 * 2018-09-14 17:45 - 一个个人博客生成工具 @[github](https://github.com/fiyc/blog-cli)
+* 2018-09-20 17:45 - vscode配置 @[other\vscode_config.js](#)
 
 ## python
 * 2018-07-10 10:38 - 日志打印封装 @[python\flib\flog.py](#)
