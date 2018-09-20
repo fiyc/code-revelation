@@ -17,7 +17,8 @@
 * 2018-09-08 13:39 - TCP代理 @[python\hack\tcp_proxy.py](#)
 * 2018-09-19 13:48 - 通过paramiko使用ssh @[python\hack\bh_sshRcmd.py](#)
 * 2018-09-19 15:04 - 通过paramiko使用ssh 服务端 @[python\hack\bh_sshserver.py](#)
-* 2018-09-19 15:28  - 包嗅探 @[python\hack\sniffer.py](#)
+* 2018-09-19 15:28 - 包嗅探 @[python\hack\sniffer.py](#)
+* 2018-09-20 14:31 - 包嗅探 解密IP层 @[python\hack\sniffer_ip_header_decode.py](#)
 
 ## 机器学习
 * 2018-08-24 10:41 - 机器学习算法原理与编程实践 @[machine-learning\](#)
