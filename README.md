@@ -1,6 +1,8 @@
 # 代码启示录
 ## 通用
 * 2018-07-09 17:00 - 添加几个常用的文件头注释代码片段  @[other/snippets.json](#)
+* 2018-09-14 17:45 - 一个个人博客生成工具 @[github](https://github.com/fiyc/blog-cli)
+* 2018-09-20 17:45 - vscode配置 @[other\vscode_config.js](#)
 
 ## python
 * 2018-07-10 10:38 - 日志打印封装 @[python\flib\flog.py](#)
@@ -13,6 +15,11 @@
 * 2018-09-07 14:38 - UDP客户端 @[python\hack\udp_client.py](#)
 * 2018-09-07 14:39 - TCP服务器 @[python\hack\tcp_server.py](#)
 * 2018-09-07 16:52 - 取代netcat @[python\hack\netcat.py](#)
+* 2018-09-08 13:39 - TCP代理 @[python\hack\tcp_proxy.py](#)
+* 2018-09-19 13:48 - 通过paramiko使用ssh @[python\hack\bh_sshRcmd.py](#)
+* 2018-09-19 15:04 - 通过paramiko使用ssh 服务端 @[python\hack\bh_sshserver.py](#)
+* 2018-09-19 15:28 - 包嗅探 @[python\hack\sniffer.py](#)
+* 2018-09-20 14:31 - 包嗅探 解密IP层 @[python\hack\sniffer_ip_header_decode.py](#)
 
 ## 机器学习
 * 2018-08-24 10:41 - 机器学习算法原理与编程实践 @[machine-learning\](#)
