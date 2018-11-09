@@ -4,6 +4,10 @@
 * 2018-09-14 17:45 - 一个个人博客生成工具 @[github](https://github.com/fiyc/blog-cli)
 * 2018-09-20 17:45 - vscode配置 @[other\vscode_config.js](#)
 
+## 算法
+* 2018-11-10 00:27 - 插入排序算法 @[algorithm/implement/insertion-sort.js](#)
+
+
 ## python
 * 2018-07-10 10:38 - 日志打印封装 @[python\flib\flog.py](#)
 * 2018-07-10 10:44 - request请求封装 @[python\flib\frequest.py](#)
