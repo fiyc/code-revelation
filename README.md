@@ -7,6 +7,8 @@
 ## 算法
 * 2018-11-10 00:27 - 插入排序算法 @[algorithm/implement/insertion-sort.js](#)
 * 2018-11-11 22:31 - 归并排序算法 @[algorithm/implement/merge-sort.js](#)
+* 2018-11-12 00:59 - 插入排序递归 @[algorithm/implement/recursion-insertion-sort.js](#)
+* 2018-11-12 00:58 - 插入排序改进 @[algorithm/implement/insertion-sort-v2.js](#)
 
 
 ## python
