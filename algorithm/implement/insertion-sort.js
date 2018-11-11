@@ -5,9 +5,15 @@
 * @Description : 
     - 插入排序算法实现
 */
-let randomMaker = require('../common/random-maker');
 
 let sort = function(targetArray){
+    let copyArray = [];
+        for(let i in targetArray){
+            copyArray[i] = targetArray[i];
+        }
+
+    targetArray = copyArray;
+
     for(let currentIndex = 1; currentIndex < targetArray.length; currentIndex++){
         let temp = targetArray[currentIndex];
 
@@ -26,14 +32,5 @@ let sort = function(targetArray){
     return targetArray;
 }
 
-
-let testArray = randomMaker.randomArray(20, 1, 10);
-
-console.log(`[-] 未排序数组: ${testArray.toString()}`);
-let begin = new Date().getTime();
-let sortArray = sort(testArray);
-
-let end = new Date().getTime();
-console.log(`[+] 排序后数组: ${testArray.toString()}`);
-
 module.exports = sort;
+
