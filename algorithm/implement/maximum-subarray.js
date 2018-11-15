@@ -79,10 +79,6 @@ let maximumCrossSubarray = function(targetArray, lowIndex, highIndex, midIndex){
     }
 }
 
-
-let testArray = randomMaker.randomArray(100, -10, 10);
-console.log(`[+] 生成测试数组 ${testArray.join(" ")}`);
-
-let re = find(testArray, 0, testArray.length - 1);
-
-console.log(`[+] 计算到最大子数组为: [${re.beginIndex}, ${re.endIndex}], 子数组和为: ${re.value}`);
+module.exports = function(targetArray){
+    return find(targetArray, 0, targetArray.length);
+}

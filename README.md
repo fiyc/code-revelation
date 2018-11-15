@@ -10,6 +10,7 @@
 * 2018-11-12 00:59 - 插入排序递归 @[algorithm/implement/recursion-insertion-sort.js](#)
 * 2018-11-12 00:58 - 插入排序改进 @[algorithm/implement/insertion-sort-v2.js](#)
 * 2018-11-15 16:20 - 最大子数组问题 @[algorithm/implement/maximum-subarray.js](#)
+* 2018-11-15 18:30 - 使用动态规划完成最大子数组问题 @[algorithm/implement/maximum-subarry-v2.js](#)
 
 
 ## python

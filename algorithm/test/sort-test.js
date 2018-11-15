@@ -6,10 +6,10 @@
     - 测试
 */
 
-let randomMaker = require('./common/random-maker');
-let insertSort = require('./implement/insertion-sort');
-let mergeSort = require('./implement/merge-sort');
-let insertSortV2 = require('./implement/insertion-sort-v2');
+let randomMaker = require('../common/random-maker');
+let insertSort = require('../implement/insertion-sort');
+let mergeSort = require('../implement/merge-sort');
+let insertSortV2 = require('../implement/insertion-sort-v2');
 
 let testArray = randomMaker.randomArray(400000, 1, 10);
 let copyArray = [].concat(testArray);
