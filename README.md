@@ -12,6 +12,11 @@
 * 2018-11-15 16:20 - 最大子数组问题 @[algorithm/implement/maximum-subarray.js](#)
 * 2018-11-15 18:30 - 使用动态规划完成最大子数组问题 @[algorithm/implement/maximum-subarry-v2.js](#)
 
+## leetcode
+* 2018-11-19 23:55 - leetcode 1 @[leetcode/p001.js](#)
+* 2018-11-19 23:56 - leetcode 2 @[leetcode/p002.js](#)
+* 2018-11-19 23:56 - leetcode 3 @[leetcode/p003.js](#)
+* 2018-11-19 22:14 - leetcode 316 @[leetcode/p316.js](#)
 
 ## python
 * 2018-07-10 10:38 - 日志打印封装 @[python\flib\flog.py](#)
