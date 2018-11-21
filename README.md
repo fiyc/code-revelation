@@ -16,6 +16,7 @@
 * 2018-11-19 23:55 - leetcode 1 @[leetcode/p001.js](#)
 * 2018-11-19 23:56 - leetcode 2 @[leetcode/p002.js](#)
 * 2018-11-19 23:56 - leetcode 3 @[leetcode/p003.js](#)
+* 2018-11-21 15:27 - leetcode 3(优化) @[leetcode/p003_2.js](#)
 * 2018-11-20 10:42 - leetcode 7 @[leetcode/p007.js](#)
 * 2018-11-19 22:14 - leetcode 316 @[leetcode/p316.js](#)
 
