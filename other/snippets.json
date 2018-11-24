@@ -29,5 +29,9 @@
 	"yyyy-MM-dd HH:mm":{
 		"prefix": "sn-now",
 		"body": "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE $1"
+	},
+	"current-location": {
+		"prefix": "sn-location",
+		"body": "$TM_FILENAME : $TM_LINE_NUMBER"
 	}
 }
