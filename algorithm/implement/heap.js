@@ -98,4 +98,13 @@ let sort = function(a, flag){
 
 let testArray = [27, 17, 3, 16, 13, 10, 1, 5, 7, 12, 4, 8, 9, 0];
 let sortResult = sort(testArray, -1);
-console.log(`${sortResult}`);
+
+module.exports = function(targetArray){
+    let copyArray = [];
+        for(let i in targetArray){
+            copyArray[i] = targetArray[i];
+        }
+
+    targetArray = copyArray;
+    return sort(targetArray, 1);
+}

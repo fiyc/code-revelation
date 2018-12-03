@@ -12,6 +12,7 @@
 * 2018-11-15 16:20 - 最大子数组问题 @[algorithm/implement/maximum-subarray.js](#)
 * 2018-11-15 18:30 - 使用动态规划完成最大子数组问题 @[algorithm/implement/maximum-subarry-v2.js](#)
 * 2018-11-25 02:39 - 堆排序 @[algorithm/implement/heap.js](#)
+* 2018-12-03 16:25 - 快速排序 @[algorithm/implement/quict-sort.js](#)
 
 ## leetcode
 * 2018-11-19 23:55 - leetcode 1 @[leetcode/p001.js](#)
