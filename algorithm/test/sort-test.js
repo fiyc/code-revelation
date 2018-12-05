@@ -33,8 +33,8 @@ let sortFns = {
     "归并排序": mergeSort,
     "快速排序": quickSort,
     "堆排序": heapSort,
-    // "插入排序V2": insertSortV2,
-    // "插入排序": insertSort,
+    "插入排序V2": insertSortV2,
+    "插入排序": insertSort,
 };
 
 for (let name in sortFns) {
