@@ -16,6 +16,7 @@
 * 2018-12-07 15:15 - 数据结构 栈 @[algorithm/data-structure/stack.js](#)
 * 2018-12-07 15:31 - 数据结构 队列 @[algorithm/data-structure/queue.js](#)
 * 2018-12-07 16:59 - 数据结构 双端队列 @[algorithm/data-structure/double-queue.js](#)
+* 2018-12-10 15:01 - 数据结构 链表 @[algorithm/data-structure/link-v1.js](#)
 
 ## leetcode
 * 2018-11-19 23:55 - leetcode 1 @[leetcode/p001.js](#)
