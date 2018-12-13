@@ -1,0 +1,54 @@
+/**
+* @Author: fiyc
+* @Date : 2018-12-13 15:02
+* @FileName : demo7.less
+* @Description : 
+    - less 引导
+*/
+@media: mobile;
+
+.mixin (@a) when (lightness(@a) >= 50%){
+    background-color: black;
+}
+
+.mixin (@a) when (lightness(@a) < 50%){
+    background-color: white;
+}
+
+.mixin(@a) when (@a > 10), (@a < -10) {
+
+}
+
+.mixin(@a) when (@media = mobile){
+    content: "mobile";
+}
+
+.mixin(@a) when (@media = desktop){
+    content: "desktop";
+}
+
+.max(@a, @b) when (@a > @b){
+    width: @a;
+}
+
+.min(@a, @b) when (@a < @b){
+    width: @a;
+}
+
+.mixin(@a) when (isnumber(@a)){}
+.mixin(@a) when (iscolor(@a)){}
+.mixin(@a) when (isstring(@a)){}
+.mixin(@a) when (iskeyword(@a)){}
+.mixin(@a) when (isurl(@a)){}
+
+.mixin(@a){
+    color: @a;
+}
+
+.class1{
+    .mixin(#ddd)
+}
+
+.class2{
+    .mixin(#555)
+}

@@ -1,0 +1,26 @@
+/**
+* @Author: fiyc
+* @Date : 2018-12-13 15:35
+* @FileName : demo11.less
+* @Description : 
+    - less 命名空间
+*/
+
+#namespace {
+    .button(){
+        display: block;
+        border: 1px solid black;
+        background-color: gray;
+        &:hover{
+            background-color: white;
+        }
+    }
+
+    .tab{}
+    .citation{}
+}
+
+#header a{
+    color: orange;
+    #namespace > .button;
+}

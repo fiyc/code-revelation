@@ -1,0 +1,18 @@
+/**
+* @Author: fiyc
+* @Date : 2018-12-13 15:25
+* @FileName : demo9.less
+* @Description : 
+    - less 运算
+*/
+
+@base: 5%;
+@filler: @base * 2;
+@other: @base + @filler;
+@base-color: #222;
+
+#header{
+    color: #888 / 4;
+    background-color: @base-color + #111;
+    height: 100% / 2 + @filler;
+}

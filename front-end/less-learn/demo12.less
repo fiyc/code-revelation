@@ -1,0 +1,20 @@
+/**
+* @Author: fiyc
+* @Date : 2018-12-13 15:39
+* @FileName : demo12.less
+* @Description : 
+    - less
+    - 字符串插值
+    - 避免编译
+    - JavaScript表达式
+*/
+
+@base-url: "127.0.0.1:3000";
+
+@var: `"hello".toUpperCase()`;
+
+#header{
+    background-image: url("@{base-url}/images/bg.png"); //字符串插值
+    filter: ~"ms:alwaysHasItsOwnSyntax.For.Stuff()"; // 避免编译
+    content: @var; //JavaScript表达式
+}

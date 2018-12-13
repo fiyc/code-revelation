@@ -1,0 +1,34 @@
+/**
+* @Author: fiyc
+* @Date : 2018-12-13 15:30
+* @FileName : demo10.less
+* @Description : 
+    - less Color函数
+*/
+
+// lighten(@color, 10%);     // return a color which is 10% *lighter* than @color
+// darken(@color, 10%);      // return a color which is 10% *darker* than @color
+
+// saturate(@color, 10%);    // return a color 10% *more* saturated than @color
+// desaturate(@color, 10%);  // return a color 10% *less* saturated than @color
+
+// fadein(@color, 10%);      // return a color 10% *less* transparent than @color
+// fadeout(@color, 10%);     // return a color 10% *more* transparent than @color
+// fade(@color, 50%);        // return @color with 50% transparency
+
+// spin(@color, 10);         // return a color with a 10 degree larger in hue than @color
+// spin(@color, -10);        // return a color with a 10 degree smaller hue than @color
+
+// mix(@color1, @color2);    // return a mix of @color1 and @color2
+
+// 提取颜色信息
+// hue(@color);        // returns the `hue` channel of @color
+// saturation(@color); // returns the `saturation` channel of @color
+// lightness(@color);  // returns the 'lightness' channel of @color
+
+@color: #111;
+
+.class{
+    color: saturate(@color, 5%);
+    background-color: lighten(spin(@color, 8), 25%);
+}

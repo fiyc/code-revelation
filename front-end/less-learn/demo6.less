@@ -1,0 +1,27 @@
+/**
+* @Author: fiyc
+* @Date : 2018-12-13 14:48
+* @FileName : demo6.less
+* @Description : 
+    - less 模式匹配
+*/
+.mixin(dark, @color){
+    color: darken(@color, 10%); 
+}
+
+.mixin(light, @color){
+    color: lighten(@color, 10%);
+}
+
+.mixin(@_, @color){
+    display: block;
+}
+
+
+#header {
+    .mixin(light, #888);
+}
+
+#body{
+    .mixin(dark, #888);
+}
