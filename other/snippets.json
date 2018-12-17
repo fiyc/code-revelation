@@ -6,7 +6,9 @@
 			"* @Author: fiyc",
 			"* @Date : $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE",
 			"* @FileName : $TM_FILENAME",
-			"* @Description : $1",
+			"* @Description :",
+			"*     $1",
+			"* $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE $1 @[$TM_FILEPATH](#)",
 			"*/"
 		]
 	},
@@ -18,7 +20,9 @@
 			"@Author: fiyc",
 			"@Date : $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE",
 			"@FileName : $TM_FILENAME",
-			"@Description : $1",
+			"@Description :",
+			"    $1",
+			"* $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE $1 @[$TM_FILEPATH](#)",
 			"'''"
 		]
 	},
