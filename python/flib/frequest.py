@@ -82,7 +82,8 @@ def request(param, header = None):
         retryNum = retryNum + 1
         try:
             response = urllib.request.urlopen(req, timeout = timeout)
-            html = response.read().decode(encode)            
+            a = response.read()
+            html = a.decode(encode)
 
             if(html != None and html != ''):
                 hasresponse = True

@@ -27,13 +27,14 @@ sys.path.append(parentPath)
 import flib.flog as log
 import flib.crawler_decorator as crawler
 
-@crawler.crawlHander(1, 10, 'utf-8')
+@crawler.crawlHander(1, 10, 'gbk')
 def analysis(html):
-    result = re.findall('<a class="title" target="_blank" href="(.*?)">([\s\S]*?)</a>', html)
+    # result = re.findall('<a class="title" target="_blank" href="(.*?)">([\s\S]*?)</a>', html)
+    result = re.findall('<div id="content">([\s\S]*?)</div>', html)
     return result
 
 
-result = analysis('https://www.jianshu.com', None)
+result = analysis('http://www.biquyun.com/16_16271/6419915.html', None)
 print(result)
 
 
